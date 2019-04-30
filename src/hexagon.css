@@ -49,13 +49,10 @@
     .hexagon-container > :nth-child(even){
         margin-right: auto;
         margin: 0.8em;
-        /*top: Calc(var(--hexHeigh)*-1.1);
-        left: Calc(var(--hexWidth)*1.2);*/
     }
     .hexagon-container > :nth-child(odd){
         margin-top: Calc(0% - var(--hexHeigh)/2)!important;
         margin-left: auto;
-        /*top: Calc(var(--hexHeigh));*/
     }
 }
 

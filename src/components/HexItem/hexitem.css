@@ -1,0 +1,28 @@
+.hex-item-border{
+    color:var(--color-ppal);
+    --hexBackground:var(--bg-ligher);
+    transition: .2s;
+    cursor: pointer;
+}
+.hex-item-border:hover{
+    transform: scale(1.05,1.05)
+}
+.hex-item-inner{
+    
+}
+.hex-item-content{
+
+}
+.hex-item-hex{
+
+}
+.hex-item-config{
+    --hexBackground:var(--bg-darker);
+    color:var(--bg-darker);
+    cursor: pointer;
+}
+.hex-item-config:hover div{
+    transition: .2s;
+    --hexBackground:var(--bg-darker);
+    color:white;
+}

@@ -18,7 +18,7 @@ const Banner = () =>{
                     <a className="nav-link" href="#"><h5 className="p-0 m-0 ml-4">Inicio</h5> <span className="sr-only">(current)</span></a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
                 </li> 
                 <li className="ml-auto">
                     <div className="btn-hex-right hex"> 

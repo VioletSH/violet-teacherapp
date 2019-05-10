@@ -1,6 +1,6 @@
 .hexagon{
-    --hexHeigh : 0em; /*Needs to be overrite*/
-    --hexWidth : 0em; /*Needs to be overrite*/
+    --hexHeigh : 0px; /*Needs to be overrite*/
+    --hexWidth : 0px; /*Needs to be overrite*/
     --hexBackground: white; /*Needs to be overrite*/
 
     background: var(--hexBackground);
@@ -22,6 +22,7 @@
     border-bottom: Calc(var(--hexHeigh)/2) solid transparent;
     border-left: Calc(var(--hexHeigh)/2) solid transparent;
     border-right: Calc(var(--hexHeigh)/3 ) solid var(--hexBackground);
+    transition: .2s;
 }
 .hexagon::after{
     position: absolute;
@@ -33,6 +34,7 @@
     border-bottom: Calc(var(--hexHeigh)/2) solid transparent;
     border-left: Calc(var(--hexHeigh)/3) solid var(--hexBackground);
     border-right: Calc(var(--hexHeigh)/2) solid transparent;
+    transition: .2s;
 }
 
 /*Hex responsive layout (Side to Side)*/

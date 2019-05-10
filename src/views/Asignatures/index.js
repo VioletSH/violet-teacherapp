@@ -1,16 +1,53 @@
-import React from 'react'
+import React,{Component} from 'react'
+import Services from '../../services';
+import * as ROUTES from '../../constants/routes'
 
 import './Asignatures.css'
 
 import HexItem from '../../components/HexItem'
 
-const Asignatures= () =>{
-    return(
-        <div className="p-5 m-auto hexagon-container">
-            <HexItem title="Una materia chida" desc1="Ingeniería Multimedia" desc2="20/20 estudiantes" hexDesc="G1"/>
-            <HexItem title="Otra materia chida" desc1="Ingeniería Multimedia" desc2="20/20 estudiantes" hexDesc="G1"/>
-            <HexItem title="Y otra materia chida" desc1="Ingeniería Multimedia" desc2="20/20 estudiantes" hexDesc="G2"/>
-        </div>
-    );
+class Cursos extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            cursos:[]
+        }
+    }
+    render(){
+        const cursos = this.state.cursos;
+        return(
+            <div className="p-5 m-auto hexagon-container">
+                {cursos?cursos.map(curso=>{
+                    return(
+                        curso.grupos.map(group=>{
+                        return(
+                            <HexItem
+                             title={curso.nombre} 
+                             desc1="Ingeniería Multimedia" 
+                             desc2="20/20 estudiantes" 
+                             hexDesc={"G"+group.numero}
+                             onClick={this.navigateToModule.bind(this ,curso.id, group.id)}/>
+                            )
+                        })
+                    )
+                }):''}
+            </div>
+        );
+    }
+    componentDidMount(){
+       Services.getCursos()  
+       .then(response=>{
+        return response.json();
+        })
+        .then((myJson)=>{
+            this.setState({
+                cursos:myJson
+            })
+        });
+    }
+    navigateToModule=(idcurso,idGroup)=>{
+        console.log(idGroup);
+        this.props.history.push(ROUTES.HOME+ROUTES.MODULES+'/'+idcurso+'/'+idGroup)
+    }
 }
-export default Asignatures
+export default Cursos

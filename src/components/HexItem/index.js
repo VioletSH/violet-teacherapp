@@ -15,7 +15,7 @@ class HexItem extends Component{
         const hexFontColor = (this.props.val&&((this.props.val/100)<0.3))?'var(--color-ppal)':'white';
 
         return(
-            <div className="hex-item-border hexagon d-flex mt-4" style={{'--hexHeigh':'10em', '--hexWidth':'30em'}}>
+            <div className="hex-item-border hexagon d-flex mt-4" style={{'--hexHeigh':'10em', '--hexWidth':'30em'}} onClick={this.props.onClick}>
                 <div className=" hex-item-inner hexagon m-auto d-flex" style={{'--hexBackground':'white', '--hexHeigh':'9em', '--hexWidth':'29em'}}>
                     <div className="hex-item-content d-flex flex-column">
                         <h3 className="mt-3">{title}</h3>

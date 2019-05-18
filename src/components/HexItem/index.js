@@ -10,19 +10,19 @@ class HexItem extends Component{
         const title = this.props.title;
         const desc1 = this.props.desc1;
         const desc2 = this.props.desc2;
-        const hexDesc = this.props.hexDesc?this.props.hexDesc:this.props.val+'%';
+        const hexDesc = this.props.hexDesc?this.props.hexDesc:'this.props.val+'%'';//Modificar
         const hexColor = (this.props.val)?this.setColor(this.props.val/100):'var(--bg-darker)'
-        const hexFontColor = (this.props.val&&((this.props.val/100)<0.3))?'var(--color-ppal)':'white';
+        const hexFontColor = (this.props.val&&((this.props.val/100)<0.3))?'var(--color-ppal)':'white';//Modificar
 
         return(
-            <div className="hex-item-border hexagon d-flex mt-4" style={{'--hexHeigh':'10em', '--hexWidth':'30em'}} onClick={this.props.onClick}>
-                <div className=" hex-item-inner hexagon m-auto d-flex" style={{'--hexBackground':'white', '--hexHeigh':'9em', '--hexWidth':'29em'}}>
+                <div className=" hex-item-inner hexagon m-auto d-flex" style={{'--hexBackground':'white', '--hexHeigh':'7em', '--hexWidth':'28em'}} onClick={this.props.onClick}>
+                    <div className="hex-item-border hexagon d-flex mt-4" style={{'--hexHeigh':'7.1em', '--hexWidth':'28.1em'}} />
                     <div className="hex-item-content d-flex flex-column">
-                        <h3 className="mt-3">{title}</h3>
-                        <h5 className="mb-2">{desc1}</h5>
+                        <h3 className="mt-3 mb-0">{title.substring(0,24)+"..."}</h3>
+                        <label className="mb-2">{desc1}</label>
                         <span className="mt-auto mb-3">{desc2}</span>
                     </div>
-                    <div className="hex-item-hex hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexBackground':`${hexColor}`, '--hexHeigh':'9em','color':`${hexFontColor}`}}>
+                    <div className="hex-item-hex hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexBackground':`${hexColor}`, '--hexHeigh':'7em','color':`${hexFontColor}`}}>
                         <h1>{hexDesc}</h1>
                         <div className="hex-item-config hexagon hex-regular fixed-top  ml-auto mt-n4 mr-n3 d-flex position-absolute d-flex align-items-center justify-content-center" style={{'--hexHeigh':'3em'}} onClick={this.props.onClick}>
                             <div className="hexagon hex-regular m-auto d-flex align-items-center justify-content-center" style={{'--hexHeigh':'2.75em'}}>
@@ -31,7 +31,6 @@ class HexItem extends Component{
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
     setColor(fact){

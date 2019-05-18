@@ -4,8 +4,9 @@ import Logo from '../../assets/logo.png'
 
 const Banner = () =>{
     return(
-        <nav className="navbar navbar-expand-lg shadow-sm bg-white col-12 shadow-bottom pt-1 pb-1 sticky-top">
-            <a className="navbar-brand" href="#">
+        <nav className="navbar shadow-sm bg-white sticky-top">
+            <h1>Banner</h1>
+            {/*<a className="navbar-brand" href="#">
                 <img className="ml-4" src={Logo} alt=""/>
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +35,7 @@ const Banner = () =>{
                     <div className="icon-help position-absolute"></div>
                 </li>
                 </ul>
-            </div>
+                </div>*/}
         </nav>
     );
 }

@@ -5,7 +5,7 @@ import * as ROUTES from '../../constants/routes'
 
 import Banner from '../../components/Banner'
 import Asignatures from '../Asignatures'
-import Modules from '../Modules'
+import Dashboard from '../Dashboard'
 
 class Home extends Component{
     constructor(props){
@@ -13,12 +13,12 @@ class Home extends Component{
     }
     render(){
         return(
-            <div className="h-100">
+            <div className="h-100 d-flex flex-column">
                 <Banner/>
-                <div className="h-100 d-flex mt-5 pt-2">
+                <div className="px-5 bg-light flex-grow-1 jutify-content-center d-flex">
                     <Switch>
                         <Route path={this.props.match.path+ROUTES.ASIGNATURES} component={Asignatures} />
-                        <Route path={this.props.match.path+ROUTES.MODULES+'/:idCurso/:idGrupo'} component={Modules} />
+                        <Route path={this.props.match.path+ROUTES.MODULES+'/:idCurso/:idGrupo'} component={Dashboard} />
                         <Redirect from={this.props.match.path} to ={this.props.match.path+ROUTES.ASIGNATURES}/>
                     </Switch>
                 </div>

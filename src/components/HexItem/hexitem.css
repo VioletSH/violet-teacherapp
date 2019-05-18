@@ -1,17 +1,27 @@
 .hex-item-border{
-    color:var(--color-ppal);
-    --hexBackground:var(--bg-ligher);
-    transition: .2s;
+    --hexBackground:rgba(0, 0, 0, 0.75);
     cursor: pointer;
-}
-.hex-item-border:hover{
-    transform: scale(1.05,1.05)
+    -webkit-filter: blur(8px);
+    -moz-filter: blur(8px);
+    -o-filter: blur(8px);
+    -ms-filter: blur(8px);
+    filter: blur(8px);
+
+    position: absolute;
+    z-index: -2;
+    margin: 0!important;   
 }
 .hex-item-inner{
-    
+    transition: .2s;
+    background: white;
+    color:var(--color-ppal);
+}
+.hex-item-inner:hover{
+    transform: scale(1.05,1.05)
 }
 .hex-item-content{
-
+    background: white;
+    width: 100%;
 }
 .hex-item-hex{
 

@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import HexItem from '../../components/HexItem'
 import Services from '../../services';
 
+import {resourceIcon} from '../../constants/icons'
+
+import FloatingButton from '../../components/FloatingButton'
+
+import './Dashboard.css'
 
 class Dashboard extends Component{
     constructor(props){
@@ -12,22 +17,27 @@ class Dashboard extends Component{
     }
     render(){
         const modules = this.state.modules;
-        console.log(modules)
         return(
-            <div className="p-5 m-auto col">
+            <div className="p-5 mx-5 col">
+                <FloatingButton/>
                 <HexItem
                     title="Asignatura"
                     desc1="Ingeniería Multimedia" 
-                    desc2="20/20 estudiantes" 
+                    desc2="20 estudiantes" 
                     hexDesc={"G"+1}
                     />
                 <div className="row mt-4 align-items-start">   
-                    <div className="col-3 mr-3 shadow-sm bg-white">
-                        <h1 className="p-5">Modulos</h1>
-                        <ul>
+                    <div className="col-3 mr-4 shadow-sm bg-white p-0">
+                        <h1 className="p-4 text-center">Modulos</h1>
+                        <ul className="side-menu p-0 m-0">
                             {modules?modules.map(module=>{
                                 return (
-                                    <li>{module.nombre}</li>
+                                    <li className="d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom">
+                                        {module.nombre}
+                                        <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexHeigh':'3em'}}>
+                                            40%
+                                        </div>
+                                    </li>
                                     )
                             }):''}
                         </ul>
@@ -50,19 +60,24 @@ class Dashboard extends Component{
                                                 <b>{actividad.nombre}</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
-                                            <label className="ml-auto">Nota(prom): 4.2</label>
+                                            <label className="ml-auto mb-0 mr-4">Nota(prom): 4.2</label>
                                             <a href='#'>ver notas</a>
-                                            <div className="hexagon"></div>
+                                            <div className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
+                                                40%
+                                            </div>
                                         </div>
                                         <div className="py-2 px-4">
                                             <div>
                                                 <h6>Descripción</h6>
                                                 <p>{actividad.descripcion}</p>
                                             </div>
-                                            <div>
+                                            <div className="dflex my-4">
                                                 {actividad.contenidos?actividad.contenidos.map(contenido=>{
+                                                    var mimeType = contenido.peticion.tipoContenido
                                                     return(
-                                                        <div className="text-danger">{contenido.peticion.tipoContenido}</div>
+                                                        <div className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
+                                                            {resourceIcon[mimeType]}
+                                                        </div>
                                                     );
                                                 }):''}
                                             </div>

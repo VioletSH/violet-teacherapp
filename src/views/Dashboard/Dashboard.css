@@ -1,0 +1,39 @@
+.side-menu{
+
+}
+.side-menu li{
+    transition: .2s
+}
+.side-menu li .hexagon{
+    --hexBackground: var(--color-ppal);
+    color: white;
+}
+
+.side-menu li:hover{
+    background: var(--bg-ligher);
+    color: white
+}
+
+.side-menu .active{
+    background: var(--color-ppal);
+    color: white
+}
+.side-menu .active::after{
+    position: absolute;
+    height: 100%;
+    width: 4em;
+    content: '';
+    right: -4em;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    border-right: 2em solid transparent;
+    border-left: 1.2em solid var(--color-ppal);
+}
+.side-menu .active .hexagon, .side-menu li:hover .hexagon{
+    --hexBackground: white;
+    color: var(--color-ppal);
+}
+.side-menu .active .hexagon{
+    transform: translateX(1.2em)
+}
+

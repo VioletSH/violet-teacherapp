@@ -24,6 +24,10 @@ code {
 }
 
 /*------------------------------------------Global css elements----------------------------------------*/
+h1,h2,h3,h4,h5,h6{
+  color:  var(--color-ppal)
+}
+
 /*Buttons*/
 .btn{
   border-radius: 2px !important; /*Overrides Bootstrap roundness*/

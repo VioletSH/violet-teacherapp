@@ -32,13 +32,13 @@ class Dashboard extends Component{
                     desc2="20 estudiantes" 
                     hexDesc={"G"+1}
                     />
-                <div className="row mt-4 align-items-start">   
-                    <div className="col-3 mr-4 shadow-sm bg-white p-0">
+                <div className=" row mt-4 align-items-start">   
+                    <div className=" side-menu col-3 mr-4 shadow-sm bg-white p-0 sticky-top">
                         <h1 className="p-4 text-center">Modulos</h1>
-                        <ul className="side-menu p-0 m-0">
-                            {modules?modules.map(module=>{
+                        <ul className=" p-0 m-0">
+                            {modules?modules.map((module,i)=>{
                                 return (
-                                    <li className="d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom">
+                                    <li className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.scrollTo.bind(this,'MdDv'+module.id)}>
                                         {module.nombre}
                                         <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexHeigh':'3em'}}>
                                             40%
@@ -52,15 +52,15 @@ class Dashboard extends Component{
                         {modules?modules.map(module=>{
                             return (
                                 <div>
-                                    <div className="shadow-sm bg-white p-2 mb-2">
+                                    <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column">
                                         <h3>{module.nombre}</h3>
+                                        <span className="align-self-end mr-4">20/20 Estudiantes terminaron</span>
                                     </div>
                                    {module.actividades.map(actividad=>{
                                     var dateCreation = new Date(actividad.createdAt)
                                     var dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-
                                     return(
-                                    <div className="shadow-sm bg-white mx-4 mb-1">
+                                    <div id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-1 activity" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
                                         <div className="shadow-sm bg-white p-2 d-flex flex-row align-items-center">
                                             <div className="d-flex flex-column">
                                                 <b>{actividad.nombre}</b>
@@ -72,7 +72,7 @@ class Dashboard extends Component{
                                                 40%
                                             </div>
                                         </div>
-                                        <div className="py-2 px-4">
+                                        <div className="py-2 px-4 details">
                                             <div>
                                                 <h6>Descripción</h6>
                                                 <p>{actividad.descripcion}</p>
@@ -139,6 +139,25 @@ class Dashboard extends Component{
                 })
              });
          })
+    }
+    toggleElement=(id)=>{
+        var el = document.getElementById(id)
+        console.log(this)
+        if(el.classList.contains('active')){
+            el.classList.remove('active')
+        }
+        else{
+            el.classList.add('active')
+        }
+    }
+    scrollTo(id){
+        var el = document.getElementById(id);
+        console.log(el)
+        el.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "center"
+         })
+        window.moveBy(65,65)
     }
     editModule=()=>{
         console.log("not implemented yet")

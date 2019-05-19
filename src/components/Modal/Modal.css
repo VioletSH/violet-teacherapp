@@ -1,5 +1,5 @@
 /*Overrides Bootstrap Modal styles*/
-.modal:not(.show), .modal-backdrop:not(.show){
+.modal:not(.show), .modal:not(.show) *, .modal-backdrop:not(.show){
     pointer-events: none
 }
 .modal-content{

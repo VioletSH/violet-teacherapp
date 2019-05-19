@@ -30,10 +30,10 @@ class Modal extends Component{
     }
     showModal=()=>{
         var modal  =document.getElementById('my-modal')
-        modal.className+=' show'
-        document.getElementsByClassName('modal-backdrop')[0].className +=' show'
+        modal.classList.add('show')
+        document.getElementsByClassName('modal-backdrop')[0].classList.add('show')
     }
-    hideModal=(e)=>{
+    hideModal=()=>{
         var elements = document.getElementsByClassName("show");
         while(elements[0]){
             elements[0].classList.remove('show')

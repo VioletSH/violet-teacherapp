@@ -1,5 +1,5 @@
 .side-menu{
-
+    top: 25%;
 }
 .side-menu li{
     transition: .2s
@@ -37,3 +37,15 @@
     transform: translateX(1.2em)
 }
 
+/*Togle Elements*/
+.activity .details{
+    position: inherit;
+    opacity: 1;
+    transition: .2s
+}
+.activity:not(.active) .details{
+    opacity: 0;
+    position: absolute;
+    transform: translateY(1em)
+}
+/*End of Toggle Elements*/

@@ -3,6 +3,8 @@ import {Switch, Route, Redirect} from 'react-router-dom'
 
 import * as ROUTES from '../../constants/routes'
 
+import './Home.css'
+
 import Banner from '../../components/Banner'
 import Asignatures from '../Asignatures'
 import Dashboard from '../Dashboard'
@@ -13,7 +15,7 @@ class Home extends Component{
     }
     render(){
         return(
-            <div className="h-100 d-flex flex-column">
+            <div className="d-flex flex-column home">
                 <Banner/>
                 <div className="px-5 bg-light flex-grow-1 jutify-content-center d-flex">
                     <Switch>

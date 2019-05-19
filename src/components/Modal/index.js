@@ -6,18 +6,20 @@ class Modal extends Component{
         super(props)
     }
     render(){
+        const title= this.props.title?this.props.title:'Please provide title in props'
+        const modalContent = this.props.children?this.props.children:'Please provide Content inside Component Tags'
         return(
             <div>
                 <button onClick={this.showModal}></button>
                 <div id="my-modal" className="modal fade d-block">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 className="modal-title">Title</h4>
+                    <div className="modal-dialog  modal-lg modal-dialog-centered position-relative">
+                        <div className="modal-content py-4 px-4">
+                            <div className="modal-header mx-4">
+                                <button type="button" className="close position-absolute" onClick={this.hideModal}>&times;</button>
+                                <h3 className="modal-title">{title}</h3>
                             </div>
-                            <div className="modal-body">
-                                Hello World!
+                            <div className="modal-body mx-4">
+                                {modalContent}
                             </div>
                         </div>
                     </div> 
@@ -30,7 +32,12 @@ class Modal extends Component{
         var modal  =document.getElementById('my-modal')
         modal.className+=' show'
         document.getElementsByClassName('modal-backdrop')[0].className +=' show'
-        console.log(modal.classList)
+    }
+    hideModal=(e)=>{
+        var elements = document.getElementsByClassName("show");
+        while(elements[0]){
+            elements[0].classList.remove('show')
+        }
     }
 }
 

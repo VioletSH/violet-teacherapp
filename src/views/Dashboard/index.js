@@ -21,7 +21,11 @@ class Dashboard extends Component{
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton/>
-                <Modal></Modal>
+
+                {/*<ModalModule moduleTitle='Holi' moduleDesc='Meow'/>*/}
+                <ModalActivity/>
+
+
                 <HexItem
                     title="Asignatura"
                     desc1="Ingeniería Multimedia" 
@@ -142,3 +146,75 @@ class Dashboard extends Component{
 }
 
 export default Dashboard
+
+
+class ModalModule extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            moduleTitle:'',
+            moduleDesc:'',
+        }
+    }
+    render(){
+        const moduleTitle = this.state.moduleTitle;
+        const moduleDesc = this.state.moduleDesc;
+        return(
+            <Modal title='Crear Módulo'>
+                <form className="d-flex flex-column">
+                    <label>
+                        Título del módulo
+                        <input type="text" className="w-100" value={moduleTitle} placeholder='Digite el título del módulo' onChange={(e)=>this.setState({moduleTitle:e.target.value})}/>
+                    </label>
+                    <label>
+                        Descripción
+                        <textarea className="w-100" rows='6' value={moduleDesc} placeholder='Digite la descripción del módulo'onChange={(e)=>this.setState({moduleDesc:e.target.value})}/>
+                    </label>
+                </form>
+            </Modal>
+        )
+    }
+    componentWillReceiveProps(props){
+        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+            console.log('yai c:')
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            moduleTitle:this.props.moduleTitle,
+            moduleDesc:this.props.moduleDesc
+        })
+    }
+}
+
+class ModalActivity extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            moduleTitle:'',
+            moduleDesc:'',
+        }
+    }
+    render(){
+        const moduleTitle = this.state.moduleTitle;
+        const moduleDesc = this.state.moduleDesc;
+        return(
+            <Modal title='Crear Actividad'>
+                <form className="d-flex flex-column">
+                    <h1>On Develop! Come later :3</h1>
+                </form>
+            </Modal>
+        )
+    }
+    componentWillReceiveProps(props){
+        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+            console.log('yai c:')
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            moduleTitle:this.props.moduleTitle,
+            moduleDesc:this.props.moduleDesc
+        })
+    }
+}

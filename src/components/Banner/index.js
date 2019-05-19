@@ -1,42 +1,27 @@
 import React from 'react'
 
 import Logo from '../../assets/logo.png'
-
+import './Banner.css'
 const Banner = () =>{
     return(
-        <nav className="navbar shadow-sm bg-white sticky-top">
-            <h1>Banner</h1>
-            <span>Juan Vicente Pradilla Cerón</span>
-            {/*<a className="navbar-brand" href="#">
-                <img className="ml-4" src={Logo} alt=""/>
+        <nav className="navbar navbar-expand-lg shadow-sm bg-white sticky-top">
+            <a className="navbar-brand">
+                <img src={Logo}/>
             </a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <div className="collapse navbar-collapse row" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto col-12 d-flex align-items-center">
-                <li className="nav-item active">
-                    <a className="nav-link" href="#"><h5 className="p-0 m-0 ml-4">Inicio</h5> <span className="sr-only">(current)</span></a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
-                </li> 
-                <li className="ml-auto">
-                    <div className="btn-hex-right hex"> 
-                        <span>Recursos</span>
-                    </div>
-                </li>
-                <li>
-                    <div className="btn-hex-right hex mr-4"> 
-                    <span>Juan Vicente</span>
-                    </div>
-                </li>
-                <li>
-                    <div className="icon-help position-absolute"></div>
-                </li>
+            <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active mx-2 px-1 pt-4 position-relative">
+                        <a class="nav-link" href="#">Asignaturas <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active mx-2 px-1 pt-4 position-relative">
+                        <a class="nav-link" href="#">Estudiante <span class="sr-only">(current)</span></a>
+                    </li>
                 </ul>
-                </div>*/}
+            </div>
+            <span>Juan Vicente Pradilla Cerón</span>
         </nav>
     );
 }

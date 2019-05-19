@@ -11,5 +11,10 @@
     width: 100%;
     z-index: -1;
     background: var(--color-ppal);
-    transform: rotateZ(45deg)
+    transform: rotateZ(45deg);
+    transition: .2s
+}
+.floating-button >div:hover{
+    background: var(--bg-darker);
+    cursor: pointer;
 }

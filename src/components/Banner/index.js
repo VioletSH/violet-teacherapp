@@ -6,6 +6,7 @@ const Banner = () =>{
     return(
         <nav className="navbar shadow-sm bg-white sticky-top">
             <h1>Banner</h1>
+            <span>Juan Vicente Pradilla Cerón</span>
             {/*<a className="navbar-brand" href="#">
                 <img className="ml-4" src={Logo} alt=""/>
             </a>

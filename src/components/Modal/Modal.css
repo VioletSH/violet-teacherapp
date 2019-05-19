@@ -1,0 +1,4 @@
+/*Overrides Bootstrap Modal*/
+.modal:not(.show), .modal-backdrop:not(.show){
+    pointer-events: none
+}

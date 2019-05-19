@@ -5,6 +5,7 @@ import Services from '../../services';
 import {resourceIcon} from '../../constants/icons'
 
 import FloatingButton from '../../components/FloatingButton'
+import Modal from '../../components/Modal'
 
 import './Dashboard.css'
 
@@ -20,6 +21,7 @@ class Dashboard extends Component{
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton/>
+                <Modal></Modal>
                 <HexItem
                     title="Asignatura"
                     desc1="Ingeniería Multimedia" 

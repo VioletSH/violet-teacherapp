@@ -201,7 +201,7 @@ class ModalActivity extends Component{
         return(
             <Modal title='Crear Actividad'>
                 <form className="d-flex flex-column">
-                    <h1>On Develop! Come later :3</h1>
+                    <h1>On Development! Come later :3</h1>
                 </form>
             </Modal>
         )

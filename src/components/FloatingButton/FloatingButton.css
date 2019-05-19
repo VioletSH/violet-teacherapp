@@ -6,7 +6,11 @@
     color: white;
     font-size: 2rem;
 }
-.floating-button > div{
+.floating-button .floating-button{
+    right: inherit !important;
+    bottom: inherit !important;
+}
+.floating-button > .diamond{
     height: 100%;
     width: 100%;
     z-index: -1;
@@ -14,7 +18,21 @@
     transform: rotateZ(45deg);
     transition: .2s
 }
-.floating-button >div:hover{
+.floating-button:hover > .diamond{
     background: var(--bg-darker);
     cursor: pointer;
+}
+.floating-button i{
+    pointer-events: none;
+    z-index: 2;
+}
+
+.floating-button .hidden-actions{
+    opacity: 0;
+    bottom:  0px;
+    transition: .2s
+}
+.floating-button:hover > .hidden-actions{
+    opacity: 1;
+    transform: translateY(-76px)
 }

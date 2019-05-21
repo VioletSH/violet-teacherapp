@@ -4,7 +4,7 @@ import Logo from '../../assets/logo.png'
 import './Banner.css'
 const Banner = () =>{
     return(
-        <nav className="navbar navbar-expand-lg shadow-sm bg-white sticky-top">
+        <nav className="navbar navbar-expand-lg shadow-sm bg-white sticky-top py-0">
             <a className="navbar-brand">
                 <img src={Logo}/>
             </a>

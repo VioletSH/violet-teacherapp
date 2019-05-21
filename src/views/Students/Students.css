@@ -1,0 +1,12 @@
+/*Overrides Bootstra*/
+.progress{
+    border-radius: .1em;
+}
+.progress span{
+    right: 1em;
+}
+
+/*Toggle Items*/
+.student:not(.active) .details{
+    display: none;
+}

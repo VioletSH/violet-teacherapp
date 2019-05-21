@@ -8,6 +8,7 @@ import './Home.css'
 import Banner from '../../components/Banner'
 import Asignatures from '../Asignatures'
 import Dashboard from '../Dashboard'
+import Students from '../Students'
 
 class Home extends Component{
     constructor(props){
@@ -21,6 +22,7 @@ class Home extends Component{
                     <Switch>
                         <Route path={this.props.match.path+ROUTES.ASIGNATURES} component={Asignatures} />
                         <Route path={this.props.match.path+ROUTES.MODULES+'/:idCurso/:idGrupo'} component={Dashboard} />
+                        <Route path={this.props.match.path+ROUTES.STUDENTS+'/:idCurso/:idGrupo'} component={Students} />
                         <Redirect from={this.props.match.path} to ={this.props.match.path+ROUTES.ASIGNATURES}/>
                     </Switch>
                 </div>

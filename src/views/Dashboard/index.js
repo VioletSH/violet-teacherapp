@@ -38,7 +38,7 @@ class Dashboard extends Component{
                         <ul className=" p-0 m-0">
                             {modules?modules.map((module,i)=>{
                                 return (
-                                    <li className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.scrollTo.bind(this,'MdDv'+module.id)}>
+                                    <li id={'MdLi'+module.id} className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.navigateModules.bind(this,module.id)}>
                                         {module.nombre}
                                         <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexHeigh':'3em'}}>
                                             40%
@@ -142,7 +142,6 @@ class Dashboard extends Component{
     }
     toggleElement=(id)=>{
         var el = document.getElementById(id)
-        console.log(this)
         if(el.classList.contains('active')){
             el.classList.remove('active')
         }
@@ -150,10 +149,14 @@ class Dashboard extends Component{
             el.classList.add('active')
         }
     }
-    scrollTo(id){
-        var el = document.getElementById(id);
-        console.log(el)
-        el.scrollIntoView({ 
+    navigateModules(id){
+        var menuItem = document.getElementById('MdLi'+id);
+        var menu = menuItem.parentElement;
+        menu.getElementsByClassName('active')[0].classList.remove('active')
+        menuItem.classList.add('active')
+
+        var moduleSection = document.getElementById('MdDv'+id);
+        moduleSection.scrollIntoView({ 
             behavior: "smooth", 
             block: "center"
          })

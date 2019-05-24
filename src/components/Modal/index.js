@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from "react-dom";
 
 import './Modal.css'
 class Modal extends Component{
@@ -10,8 +11,7 @@ class Modal extends Component{
         const modalContent = this.props.children?this.props.children:'Please provide Content inside Component Tags'
         return(
             <div>
-                <button onClick={this.showModal}></button>
-                <div id="my-modal" className="modal fade d-block">
+                <div className="modal fade d-block">
                     <div className="modal-dialog  modal-lg modal-dialog-centered position-relative">
                         <div className="modal-content py-4 px-4">
                             <div className="modal-header mx-4">
@@ -28,8 +28,13 @@ class Modal extends Component{
             </div>
         )
     }
+    componentWillReceiveProps(props){
+        if(this.props.openCount !== props.openCount){
+            this.showModal();
+        }
+    }
     showModal=()=>{
-        var modal  =document.getElementById('my-modal')
+        var modal =ReactDOM.findDOMNode(this).getElementsByClassName('modal')[0];
         modal.classList.add('show')
         document.getElementsByClassName('modal-backdrop')[0].classList.add('show')
     }

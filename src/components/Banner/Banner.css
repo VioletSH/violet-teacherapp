@@ -1,6 +1,12 @@
 /*Custom styles inside nav element (Banner)*/
+.navbar{
+    height: 65px;
+}
 .navbar span{
     color: var(--color-ppal)
+}
+.navbar li{
+    cursor: pointer;
 }
 .navbar li::after{
     content: '';
@@ -16,4 +22,11 @@
     margin-left: auto;
     margin-right: auto;
     bottom: -0rem;
+}
+
+.navbar li:not(.active) *{
+    color:gray
+}
+.navbar li:not(.active)::after{
+    display: none;
 }

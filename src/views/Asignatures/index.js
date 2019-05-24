@@ -22,6 +22,7 @@ class Cursos extends Component{
                         curso.grupos.map(group=>{
                         return(
                             <HexItem
+                             key={curso.id+''+group.numero}
                              title={curso.nombre} 
                              desc1="Ingeniería Multimedia" 
                              desc2="20/20 estudiantes" 
@@ -35,7 +36,7 @@ class Cursos extends Component{
         );
     }
     componentDidMount(){
-           Services.getCursos()  
+        Services.getCursos()  
        .then(response=>{
         return response.json();
         })
@@ -46,8 +47,8 @@ class Cursos extends Component{
         });
     }
     navigateToModule=(idcurso,idGroup)=>{
-        console.log(idGroup);
-        this.props.history.push(ROUTES.HOME+ROUTES.MODULES+'/'+idcurso+'/'+idGroup)
+        this.props.setAsignature(idcurso,idGroup);
+        this.props.history.push(ROUTES.HOME+ROUTES.MODULES)
     }
 }
 export default Cursos

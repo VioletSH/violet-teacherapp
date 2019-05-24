@@ -5,6 +5,7 @@
     right: 25px;
     color: white;
     font-size: 2rem;
+    cursor: pointer;
 }
 .floating-button .floating-button{
     right: inherit !important;

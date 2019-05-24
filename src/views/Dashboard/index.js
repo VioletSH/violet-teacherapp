@@ -13,18 +13,37 @@ class Dashboard extends Component{
     constructor(props){
         super(props)
         this.state={
-            modules:[]
+            //Used for open modals
+            openModalM:0,
+            openModalA:0,
+            openModalC:0,
         }
     }
     render(){
-        const modules = this.state.modules;
+        const asignature = this.props.asignature;
+        const modules = asignature.modulos;
         return(
             <div className="p-5 mx-5 col">
-                <FloatingButton/>
+                <FloatingButton
+                    actions={[{
+                        action:this.addModule,
+                        icon:'AM'
+                        },
+                        {
+                        action:this.addActivity,
+                        icon:'AA'
+                        },
+                        {
+                        action:this.addContent,
+                        icon:'AC'
+                        },
+                    ]}
+                />
 
-                {/*<ModalModule moduleTitle='Holi' moduleDesc='Meow'/>*/}
-                <ModalActivity/>
 
+                <ModalModule openCount={this.state.openModalM}/>
+                <ModalActivity openCount={this.state.openModalA}/>
+                <ModalContent openCount={this.state.openModalC}/>
 
                 <HexItem
                     title="Asignatura"
@@ -38,9 +57,11 @@ class Dashboard extends Component{
                         <ul className=" p-0 m-0">
                             {modules?modules.map((module,i)=>{
                                 return (
-                                    <li id={'MdLi'+module.id} className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.navigateModules.bind(this,module.id)}>
+                                    <li key={'MdLi'+module.id} id={'MdLi'+module.id} className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.navigateModules.bind(this,module.id)}>
                                         {module.nombre}
-                                        <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" style={{'--hexHeigh':'3em'}}>
+                                        <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" 
+                                            style={{'--hexHeigh':'3em'}}
+                                            >
                                             40%
                                         </div>
                                     </li>
@@ -51,7 +72,7 @@ class Dashboard extends Component{
                     <div className="col ml-2 p-0">
                         {modules?modules.map(module=>{
                             return (
-                                <div>
+                                <div key= {'MdDv'+module.id}    >
                                     <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column">
                                         <h3>{module.nombre}</h3>
                                         <span className="align-self-end mr-4">20/20 Estudiantes terminaron</span>
@@ -60,7 +81,7 @@ class Dashboard extends Component{
                                     var dateCreation = new Date(actividad.createdAt)
                                     var dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
                                     return(
-                                    <div id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-1 activity" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
+                                    <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-1 activity" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
                                         <div className="shadow-sm bg-white p-2 d-flex flex-row align-items-center">
                                             <div className="d-flex flex-column">
                                                 <b>{actividad.nombre}</b>
@@ -81,7 +102,7 @@ class Dashboard extends Component{
                                                 {actividad.contenidos?actividad.contenidos.map(contenido=>{
                                                     var mimeType = contenido.peticion.tipoContenido
                                                     return(
-                                                        <div className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
+                                                        <div key={contenido.id} className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
                                                             {resourceIcon[mimeType]}
                                                         </div>
                                                     );
@@ -98,47 +119,6 @@ class Dashboard extends Component{
                 </div>
             </div>
         );
-    }
-    componentDidMount(){
-        const { idCurso,idGrupo } = this.props.match.params
-
-        Services.getCurso(idCurso)  
-        .then(response=>{
-         return response.json();
-         })
-         .then((curso)=>{
-             return curso.modulos
-         })
-         .then((modules)=>{
-             var modulesWithNestedData = modules;
-
-             modulesWithNestedData.forEach(module => {
-                module.actividades = []
-                Services.getModulo(module.id)  
-                .then(response=>{
-                    return response.json();
-                })
-                .then((modulo)=>{
-                    return modulo.actividades
-                })
-                .then((actividades)=>{
-                    actividades.forEach(actividad=>{
-                        actividad.contenidos=[]
-                        Services.getContenidos(actividad.id)
-                        .then(response=>{
-                            return response.json();
-                        })
-                        .then((contenidos)=>{
-                            actividad.contenidos=(contenidos)
-                            module.actividades.push(actividad)
-                            this.setState({
-                                modules:modulesWithNestedData
-                            })
-                        })
-                    })
-                })
-             });
-         })
     }
     toggleElement=(id)=>{
         var el = document.getElementById(id)
@@ -160,8 +140,23 @@ class Dashboard extends Component{
             behavior: "smooth", 
             block: "center"
          })
-        window.moveBy(65,65)
     }
+    addModule=()=>{
+        this.setState({
+            openModalM:this.state.openModalM+1
+        });
+    }
+    addActivity=()=>{
+        this.setState({
+            openModalA:this.state.openModalA+1
+        });
+    } 
+    addContent=()=>{
+        this.setState({
+            openModalC:this.state.openModalC+1
+        });
+    }
+
     editModule=()=>{
         console.log("not implemented yet")
     }
@@ -176,13 +171,15 @@ class ModalModule extends Component{
         this.state={
             moduleTitle:'',
             moduleDesc:'',
+
+            openCountModal:0
         }
     }
     render(){
-        const moduleTitle = this.state.moduleTitle;
-        const moduleDesc = this.state.moduleDesc;
+        const moduleTitle = this.state.moduleTitle?this.state.moduleTitle:'';
+        const moduleDesc = this.state.moduleDesc?this.state.moduleDesc:'';
         return(
-            <Modal title='Crear Módulo'>
+            <Modal title='Crear Módulo' openCount={this.state.openCountModal}>
                 <form className="d-flex flex-column">
                     <label>
                         Título del módulo
@@ -197,14 +194,19 @@ class ModalModule extends Component{
         )
     }
     componentWillReceiveProps(props){
-        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+        if(this.props.moduleTitle!==props.moduleTitle|this.props.moduleDesc!==props.moduleDesc){
             console.log('yai c:')
+        }
+        if(props.openCount!==this.props.openCount){
+            this.setState({
+                openCountModal:this.state.openCountModal+1  
+            })
         }
     }
     componentDidMount(){
         this.setState({
             moduleTitle:this.props.moduleTitle,
-            moduleDesc:this.props.moduleDesc
+            moduleDesc:this.props.moduleDesc,
         })
     }
 }
@@ -215,15 +217,17 @@ class ModalActivity extends Component{
         this.state={
             moduleTitle:'',
             moduleDesc:'',
+
+            openCountModal:0
         }
     }
     render(){
         const moduleTitle = this.state.moduleTitle;
         const moduleDesc = this.state.moduleDesc;
         return(
-            <Modal title='Crear Actividad'>
+            <Modal title='Crear Actividad' openCount={this.state.openCountModal}>
                 <form className="d-flex flex-column">
-                    <h1>On Development! Come later :3</h1>
+                    <h1>On Development Activity! Come later :3</h1>
                 </form>
             </Modal>
         )
@@ -231,6 +235,50 @@ class ModalActivity extends Component{
     componentWillReceiveProps(props){
         if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
             console.log('yai c:')
+        }
+        if(props.openCount!==this.props.openCount){
+            this.setState({
+                openCountModal:this.state.openCountModal+1  
+            })
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            moduleTitle:this.props.moduleTitle,
+            moduleDesc:this.props.moduleDesc
+        })
+    }
+}
+
+class ModalContent extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            moduleTitle:'',
+            moduleDesc:'',
+
+            openCountModal:0
+        }
+    }
+    render(){
+        const moduleTitle = this.state.moduleTitle;
+        const moduleDesc = this.state.moduleDesc;
+        return(
+            <Modal title='Crear Contenido' openCount={this.state.openCountModal}>
+                <form className="d-flex flex-column">
+                    <h1>On Development Content! Come later :3</h1>
+                </form>
+            </Modal>
+        )
+    }
+    componentWillReceiveProps(props){
+        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+            console.log('yai c:')
+        }
+        if(props.openCount!==this.props.openCount){
+            this.setState({
+                openCountModal:this.state.openCountModal+1  
+            })
         }
     }
     componentDidMount(){

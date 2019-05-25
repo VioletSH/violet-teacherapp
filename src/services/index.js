@@ -7,20 +7,9 @@ class Services{
             fetch(this.mainUrl+'/curso')
         )
     }
-    static getCurso(id){
+    static getCursoGrupo(idCurso,idGrupo){
         return (
-            fetch(this.mainUrl+'/curso/'+id)
-        )
-    }
-
-    static getModulo(id){
-        return (
-            fetch(this.mainUrl+'/modulo/'+id)
-        )
-    }
-    static getContenidos(idActividad){
-        return(
-            fetch(this.mainUrl+'/contenido/?actividad='+idActividad)
+            fetch(this.mainUrl+'/CursoGrupo/'+idCurso+'/'+idGrupo)
         )
     }
 }

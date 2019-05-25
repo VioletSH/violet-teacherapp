@@ -40,46 +40,14 @@ class Home extends Component{
     }
     setAsignature=(idAsignature,idGroup)=>{
         var asignature={}
-        Services.getCurso(idAsignature)  
+        Services.getCursoGrupo(idAsignature,idGroup)  
         .then(response=>{
          return response.json();
          })
          .then((curso)=>{
-             asignature=curso
-             var group = asignature.grupos.find(x=> x.id === idGroup)
-             delete asignature.grupos
-             asignature.grupo = group
-             return curso.modulos
-         })
-         .then((modules)=>{
-             var modulesWithNestedData = modules;
-             modulesWithNestedData.forEach(module => {
-                module.actividades = []
-                Services.getModulo(module.id)  
-                .then(response=>{
-                    return response.json();
-                })
-                .then((modulo)=>{
-                    return modulo.actividades
-                })
-                .then((actividades)=>{
-                    actividades.forEach(actividad=>{
-                        actividad.contenidos=[]
-                        Services.getContenidos(actividad.id)
-                        .then(response=>{
-                            return response.json();
-                        })
-                        .then((contenidos)=>{
-                            actividad.contenidos=(contenidos)
-                            module.actividades.push(actividad)
-                            asignature.modulos=modulesWithNestedData
-                            this.setState({
-                                asignature:asignature
-                            })
-                        })
-                    })
-                })
-             });
+            this.setState({
+                asignature:curso
+            })
          })
     }
 

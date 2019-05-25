@@ -21,6 +21,7 @@ class Dashboard extends Component{
     }
     render(){
         const asignature = this.props.asignature;
+        const totalStudents = asignature.hasOwnProperty('grupo')?asignature.grupo.estudiantes.length:0
         const modules = asignature.modulos;
         return(
             <div className="p-5 mx-5 col">
@@ -65,7 +66,7 @@ class Dashboard extends Component{
                                         <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" 
                                             style={{'--hexHeigh':'3em'}}
                                         >
-                                            40%
+                                            {module.progreso}%
                                         </div>
                                     </li>
                                     )
@@ -78,7 +79,7 @@ class Dashboard extends Component{
                                 <div key= {'MdDv'+module.id}    >
                                     <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column">
                                         <h3>{module.nombre}</h3>
-                                        <span className="align-self-end mr-4">20/20 Estudiantes terminaron</span>
+                                        <span className="align-self-end mr-4">{module.estudiantesTerminaron +'/' + totalStudents} Estudiantes terminaron</span>
                                     </div>
                                    {module.actividades.map(actividad=>{
                                     var dateCreation = new Date(actividad.createdAt)
@@ -90,10 +91,10 @@ class Dashboard extends Component{
                                                 <b>{actividad.nombre}</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
-                                            <label className="ml-auto mb-0 mr-4">Nota(prom): 4.2</label>
+                                            <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm.toFixed(1)}</label>
                                             <a href='#'>ver notas</a>
                                             <div className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
-                                                40%
+                                                {actividad.progreso}%
                                             </div>
                                         </div>
                                         <div className="py-2 px-4 details">

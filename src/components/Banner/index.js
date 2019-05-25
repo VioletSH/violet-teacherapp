@@ -25,7 +25,7 @@ class Banner extends Component{
                 <a className="navbar-brand">
                     <img src={Logo} className={location!==-1?'d-none':'d-block'}/>
                     <div className={location!==-1?'d-flex':'d-none'} onClick={()=>this.chageView(-1)}>
-                        <a>&#8249;</a>
+                        <a className='mr-2'>&#8249;</a>
                         <span className='mr-2'>{asignature?asignature.abreviatura:''}</span>
                         {asignature?'G'+asignature.grupo.numero:''}
                     </div>

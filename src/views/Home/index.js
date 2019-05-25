@@ -30,7 +30,7 @@ class Home extends Component{
                         <Route path={this.props.match.path+ROUTES.MODULES} 
                             render={(props) => <Dashboard {...props} asignature={this.state.asignature} />} />
                         <Route path={this.props.match.path+ROUTES.STUDENTS} 
-                            render={(props) => <Students {...props} asignature={this.state.asignature} />} />
+                            render={(props) => <Students {...props} group={this.state.asignature.grupo} />} />
 
                         <Redirect from={this.props.match.path} to ={this.props.match.path+ROUTES.ASIGNATURES}/>
                     </Switch>
@@ -44,11 +44,12 @@ class Home extends Component{
         .then(response=>{
          return response.json();
          })
-         .then((curso)=>{
+        .then((curso)=>{
+            console.log(curso)
             this.setState({
                 asignature:curso
             })
-         })
+        })
     }
 
 }

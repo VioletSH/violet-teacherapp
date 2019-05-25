@@ -4,9 +4,12 @@
 }
 .progress span{
     right: 1em;
-}
+}   
 
 /*Toggle Items*/
+.student .details{
+    display: flex;
+}
 .student:not(.active) .details{
     display: none;
 }

@@ -18,7 +18,8 @@
     color:var(--color-ppal);
 }
 .hex-item-inner:hover{
-    transform: scale(1.05,1.05)
+    transform: scale(1.05,1.05);
+    cursor: pointer;
 }
 .hex-item-content{
     background: white;
@@ -36,4 +37,8 @@
     transition: .2s;
     --hexBackground:var(--bg-darker);
     color:white;
+}
+
+.hexagon h1{
+    color:white 
 }

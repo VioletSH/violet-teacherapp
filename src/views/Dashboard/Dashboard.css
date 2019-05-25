@@ -46,6 +46,7 @@
 .activity:not(.active) .details{
     opacity: 0;
     position: absolute;
-    transform: translateY(1em)
+    transform: translateY(1em);
+    pointer-events: none;
 }
 /*End of Toggle Elements*/

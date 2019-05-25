@@ -27,6 +27,9 @@ code {
 h1,h2,h3,h4,h5,h6,a,a:hover{
   color:  var(--color-ppal)
 }
+a:hover{
+  cursor: pointer;
+}
 /*Buttons*/
 .btn{
   border-radius: 2px !important; /*Overrides Bootstrap roundness*/

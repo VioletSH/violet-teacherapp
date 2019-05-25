@@ -57,11 +57,14 @@ class Dashboard extends Component{
                         <ul className=" p-0 m-0">
                             {modules?modules.map((module,i)=>{
                                 return (
-                                    <li key={'MdLi'+module.id} id={'MdLi'+module.id} className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} onClick={this.navigateModules.bind(this,module.id)}>
+                                    <li key={'MdLi'+module.id} id={'MdLi'+module.id} 
+                                        className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} 
+                                        onClick={this.navigateModules.bind(this,module.id)}
+                                        >
                                         {module.nombre}
                                         <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" 
                                             style={{'--hexHeigh':'3em'}}
-                                            >
+                                        >
                                             40%
                                         </div>
                                     </li>

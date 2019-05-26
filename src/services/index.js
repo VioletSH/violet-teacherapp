@@ -28,6 +28,19 @@ class Services{
                 })
         )
     }
+    static postActividad(idModulo,nombre,desc){
+        var data = {
+            nombre: nombre,
+            descripcion: desc,
+            modulo: idModulo
+        }
+        return(
+            fetch(this.mainUrl+'/actividad', {
+                method: 'post',
+                body: JSON.stringify(data)
+                })
+        )
+    }
 
 }
 export default Services;

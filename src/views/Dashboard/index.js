@@ -43,7 +43,7 @@ class Dashboard extends Component{
 
 
                 <ModalModule openCount={this.state.openModalM} action={this.props.addModule}/>
-                <ModalActivity openCount={this.state.openModalA}/>
+                <ModalActivity openCount={this.state.openModalA} modules={modules} action={this.props.addActivity}/>
                 <ModalContent openCount={this.state.openModalC}/>
 
                 <div className='hex-item d-flex position-relative'>
@@ -106,7 +106,7 @@ class Dashboard extends Component{
                                                 <b>{actividad.nombre}</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
-                                            <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm.toFixed(1)}</label>
+                                            <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm?actividad.notaProm.toFixed(1):0.0}</label>
                                             <a href='#' className='mr-2'>ver notas</a>
                                             <Hex size='3.5em' color={mainColor}>{actividad.progreso}%</Hex> 
                                         </div>
@@ -207,7 +207,7 @@ class ModalModule extends Component{
                     </label>
                     <label>
                         Descripción
-                        <textarea className="w-100" rows='6' value={moduleDesc} placeholder='Digite la descripción del módulo'onChange={(e)=>this.setState({moduleDesc:e.target.value})}/>
+                        <textarea className="w-100" rows='4' value={moduleDesc} placeholder='Digite la descripción del módulo'onChange={(e)=>this.setState({moduleDesc:e.target.value})}/>
                     </label>
                 </form>
             </Modal>
@@ -237,17 +237,46 @@ class ModalActivity extends Component{
         this.state={
             moduleTitle:'',
             moduleDesc:'',
+            moduleSelection:'',
 
             openCountModal:0
+
         }
     }
     render(){
-        //const moduleTitle = this.state.moduleTitle;
-        //const moduleDesc = this.state.moduleDesc;
+        const activityTitle = this.state.activityTitle;
+        const activityDesc = this.state.activityDesc;
+        const modules = this.props.modules;
+
+        const moduleSelection = this.state.moduleSelection;
+
         return(
-            <Modal title='Crear Actividad' openCount={this.state.openCountModal}>
+            <Modal title='Crear Actividad' openCount={this.state.openCountModal} onAccept={this.props.action.bind(this,moduleSelection,activityTitle,activityDesc)}>
                 <form className="d-flex flex-column">
-                    <h1>On Development Activity! Come later :3</h1>
+                    <label for="exampleFormControlSelect1">Modulo</label>
+                    <select className="form-control mb-2" id="exampleFormControlSelect1" onChange={(e)=>this.setState({moduleSelection:e.target.value})}>
+                        {modules?modules.map(module=>{
+                            return(<option value={module.id}>{module.nombre}</option>)
+                        }):''}
+                    </select>
+                    <label>
+                        Título de la actividad
+                        <input type="text" className="w-100" value={activityTitle} placeholder='Digite el título de la actividad' onChange={(e)=>this.setState({activityTitle:e.target.value})}/>
+                    </label>
+                    <label>
+                        Descripción
+                        <textarea className="w-100" rows='4' value={activityDesc} placeholder='Digite la descripción de la actividad'onChange={(e)=>this.setState({activityDesc:e.target.value})}/>
+                    </label>
+                    <div className='row'>
+                        <label className='col-4'>
+                            Duración estimada
+                            <input type="text" className="w-100" placeholder='00:00:00'/>
+                        </label>
+                        <label className='col-4'>
+                            Nota máxima
+                            <input type="text" className="w-100" placeholder='0.0' />
+                        </label>
+                    </div>
                 </form>
             </Modal>
         )

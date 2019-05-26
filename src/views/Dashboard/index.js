@@ -4,6 +4,7 @@ import Services from '../../services';
 
 import {resourceIcon} from '../../constants/icons'
 
+import Hex from '../../components/Hexagon'
 import FloatingButton from '../../components/FloatingButton'
 import Modal from '../../components/Modal'
 
@@ -23,6 +24,7 @@ class Dashboard extends Component{
         const asignature = this.props.asignature;
         const totalStudents = asignature.hasOwnProperty('grupo')?asignature.grupo.estudiantes.length:0
         const modules = asignature.modulos;
+        const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton
@@ -62,12 +64,8 @@ class Dashboard extends Component{
                                         className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} 
                                         onClick={this.navigateModules.bind(this,module.id)}
                                         >
-                                        {module.nombre}
-                                        <div className="hexagon hex-regular ml-auto  position-relative d-flex align-items-center justify-content-center" 
-                                            style={{'--hexHeigh':'3em'}}
-                                        >
-                                            {module.progreso}%
-                                        </div>
+                                        <span>{module.nombre}</span>
+                                        <Hex size='3.5em' color={mainColor}>{module.progreso}%</Hex> 
                                     </li>
                                     )
                             }):''}
@@ -92,23 +90,19 @@ class Dashboard extends Component{
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
                                             <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm.toFixed(1)}</label>
-                                            <a href='#'>ver notas</a>
-                                            <div className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
-                                                {actividad.progreso}%
-                                            </div>
+                                            <a href='#' className='mr-2'>ver notas</a>
+                                            <Hex size='3.5em' color={mainColor}>{actividad.progreso}%</Hex> 
                                         </div>
                                         <div className="py-2 px-4 details">
                                             <div>
                                                 <h6>Descripción</h6>
                                                 <p>{actividad.descripcion}</p>
                                             </div>
-                                            <div className="dflex my-4">
+                                            <div className="row m-4">
                                                 {actividad.contenidos?actividad.contenidos.map(contenido=>{
                                                     var mimeType = contenido.peticion.tipoContenido
                                                     return(
-                                                        <div key={contenido.id} className="hexagon hex-regular mx-5 d-flex align-items-center justify-content-center" style={{'--hexBackground': 'var(--color-ppal)','--hexHeigh':'3em', 'color':'white'}}>
-                                                            {resourceIcon[mimeType]}
-                                                        </div>
+                                                        <Hex size='3.5em' color={mainColor}>{resourceIcon[mimeType]}</Hex> 
                                                     );
                                                 }):''}
                                             </div>
@@ -136,9 +130,14 @@ class Dashboard extends Component{
     navigateModules(id){
         var menuItem = document.getElementById('MdLi'+id);
         var menu = menuItem.parentElement;
-        menu.getElementsByClassName('active')[0].classList.remove('active')
+        var lastActiveItem = menu.getElementsByClassName('active')[0]
+        lastActiveItem.classList.remove('active')
         menuItem.classList.add('active')
 
+        //Needed to handle svg
+        menuItem.getElementsByTagName('path')[0].setAttribute('fill','#FFF');
+        lastActiveItem.getElementsByTagName('path')[0].setAttribute('fill',getComputedStyle(document.body).getPropertyValue('--color-ppal'));          
+          
         var moduleSection = document.getElementById('MdDv'+id);
         moduleSection.scrollIntoView({ 
             behavior: "smooth", 

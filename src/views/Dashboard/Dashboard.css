@@ -24,17 +24,17 @@
     width: 4em;
     content: '';
     right: -4em;
-    border-top: 2em solid transparent;
-    border-bottom: 2em solid transparent;
-    border-right: 2em solid transparent;
+    border-top: 2.2em solid transparent;
+    border-bottom: 2.2em solid transparent;
+    border-right: 2.2em solid transparent;
     border-left: 1.2em solid var(--color-ppal);
 }
-.side-menu .active .hexagon, .side-menu li:hover .hexagon{
-    --hexBackground: white;
+.side-menu .active .hex, .side-menu li:hover .hex{
+    fill: white;
     color: var(--color-ppal);
 }
-.side-menu .active .hexagon{
-    transform: translateX(1.2em)
+.side-menu .active .hex{
+    transform: translateX(1.8em)
 }
 
 /*Togle Elements*/

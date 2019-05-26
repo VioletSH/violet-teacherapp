@@ -1,0 +1,42 @@
+.hex{
+    width: auto;
+    height: 100%;
+    position: relative;
+    transition: .3s;
+    color:white;
+    z-index: 1;
+
+}
+.hex h1,.hex h2,.hex h3,.hex h4,.hex h5,.hex h6{
+    color: white
+}
+.hex svg{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+
+
+/*Hex responsive layout (Side to Side)*/
+.hexagon-container {
+    display: initial;
+}
+@media (min-width: 1200px) {
+    .hexagon-container {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        row-gap:1.8em;
+        column-gap:6%;
+    }
+    .hexagon-container > :nth-child(even){
+        margin-right: auto;
+        margin: 8%;
+    }
+    .hexagon-container > :nth-child(odd){
+        margin-top: -6vh!important;
+        margin-left: auto;
+    }
+}
+
+/*End of responsive layout*/

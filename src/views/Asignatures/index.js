@@ -4,7 +4,8 @@ import * as ROUTES from '../../constants/routes'
 
 import './Asignatures.css'
 
-import HexItem from '../../components/HexItem'
+import Hex from '../../components/Hexagon'
+
 
 class Cursos extends Component{
     constructor(props){
@@ -15,19 +16,44 @@ class Cursos extends Component{
     }
     render(){
         const cursos = this.state.cursos;
+        const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
+        const hexColor = 'var(--bg-darker)'
+
         return(
             <div className="p-5 m-auto hexagon-container">
                 {cursos?cursos.map(curso=>{
                     return(
                         curso.grupos.map(group=>{
+                            console.log(group)
                         return(
-                            <HexItem
-                             key={curso.id+''+group.numero}
-                             title={curso.nombre} 
-                             desc1="Ingeniería Multimedia" 
-                             desc2="20/20 estudiantes" 
-                             hexDesc={"G"+group.numero}
-                             onClick={this.navigateToModule.bind(this ,curso.id, group.id)}/>
+                             <div className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,curso.id, group.id)}>
+                                <div className="hex-item-content d-flex flex-column">
+                                    <h3 className="mt-3 mb-0">{curso.nombre.substring(0,24)+"..."}</h3>
+                                    <label className="mb-2">{'Ingeniería Multimedia'}</label>
+                                    <span className="mt-auto mb-3">{'n estudiantes'}</span>
+                                </div>
+                                <div className="shape left h-100 w-100 position-absolute">
+                                    <Hex color={'#fff'}></Hex>
+                                </div>
+                                <div className="shape right h-100 w-100 position-absolute">
+                                    <Hex color={'#fff'}></Hex>
+                                </div>
+                                <div className='right w-100 h-100 position-absolute'>
+                                    <Hex color={hexColor}>
+                                        <h1>G{group.numero}</h1>
+                                    </Hex>
+                                </div>
+                                <div className="shadow w-100 h-100 position-absolute">
+                                    <div className="w-100 h-100 position-relative">
+                                        <div className="shape left h-100 w-100 position-absolute">
+                                            <Hex color={'#000'}></Hex>
+                                        </div>
+                                        <div className="shape right h-100 w-100 position-absolute">
+                                            <Hex color={'#000'}></Hex>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             )
                         })
                     )

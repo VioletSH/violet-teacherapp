@@ -1,0 +1,13 @@
+.hex-button{
+   width: 8rem;
+   height: 1.9rem;  
+   z-index: 2;
+   transition: .2s
+}
+.hex-button:hover{
+    cursor: pointer;
+    transform: scale(1.1,1.1)
+}
+.hex-button svg{
+    z-index: -1;
+}

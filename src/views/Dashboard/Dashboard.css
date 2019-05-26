@@ -11,7 +11,8 @@
 
 .side-menu li:hover{
     background: var(--bg-ligher);
-    color: white
+    color: white;
+    cursor: pointer;
 }
 
 .side-menu .active{

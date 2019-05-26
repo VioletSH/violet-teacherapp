@@ -1,0 +1,62 @@
+.hex-item{
+    height: 8em;
+    min-width: 34vw;
+    width: auto;
+    z-index: 2;
+    cursor: pointer;
+    transition: .2s
+}
+.hex-item.hoverable:hover{
+    transform: scale(1.1,1.1)
+}
+.shape{
+    z-index: -1;
+}
+.hex-item .left{
+    left: Calc(-50% + 2em)
+}
+.hex-item .right{
+    right: Calc(-50% + 2em)
+}
+/*Overrides Boostrap*/
+.hex-item > .shadow{
+    background-color:black;
+    opacity: .25;
+    z-index: -2;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+    transform: translateY(2px) 
+}
+.hex-item-content{
+    background: white;
+    width: 100%;
+}
+.hexagon h1{
+    color:white 
+}
+
+/*Hex responsive layout (Side to Side)*/
+.hexagon-container {
+    display: initial;
+}
+@media (min-width: 1200px) {
+    .hexagon-container {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        row-gap:1.8em;
+        column-gap:4%;
+    }
+    .hexagon-container > :nth-child(even){
+        margin-right: auto;
+        margin: 8%;
+    }
+    .hexagon-container > :nth-child(odd){
+        margin-top: -6vh!important;
+        margin-left: auto;
+    }
+}
+
+/*End of responsive layout*/

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from "react-dom";
+import HexButton from '../HexButton'
 
 import './Modal.css'
 class Modal extends Component{
@@ -20,6 +21,10 @@ class Modal extends Component{
                             </div>
                             <div className="modal-body mx-4">
                                 {modalContent}
+                            </div>
+                            <div class="modal-footer mr-3">
+                                <HexButton type='cancel' onClick={this.hideModal}>Cancelar</HexButton>
+                                <HexButton type='accept' onClick={this.props.onAccept}>Aceptar</HexButton>
                             </div>
                         </div>
                     </div> 

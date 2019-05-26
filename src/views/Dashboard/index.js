@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import HexItem from '../../components/HexItem'
-import Services from '../../services';
 
 import {resourceIcon} from '../../constants/icons'
 
@@ -21,10 +19,11 @@ class Dashboard extends Component{
         }
     }
     render(){
-        const asignature = this.props.asignature;
-        const totalStudents = asignature.hasOwnProperty('grupo')?asignature.grupo.estudiantes.length:0
-        const modules = asignature.modulos;
+        const asignature = Object.keys(this.props.asignature).length>0?this.props.asignature:null;
+        const totalStudents = asignature?asignature.grupo.estudiantes.length:0
+        const modules = asignature?asignature.modulos:'';
         const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
+        console.log(asignature)
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton
@@ -48,12 +47,31 @@ class Dashboard extends Component{
                 <ModalActivity openCount={this.state.openModalA}/>
                 <ModalContent openCount={this.state.openModalC}/>
 
-                <HexItem
-                    title="Asignatura"
-                    desc1="Ingeniería Multimedia" 
-                    desc2="20 estudiantes" 
-                    hexDesc={"G"+1}
-                    />
+                <div className='hex-item d-flex position-relative'>
+                    <div className="hex-item-content d-flex flex-column">
+                        <h3 className="mt-3 mb-0">{asignature?asignature.nombre+' - Grupo '+asignature.grupo.numero:''}</h3>
+                        <label className="mb-2">{'Ingeniería Multimedia'}</label>
+                        <span className="mt-auto mb-3">{'n estudiantes'}</span>
+                    </div>
+                    <div className="shape left h-100 w-100 position-absolute">
+                        <Hex color={'#fff'}></Hex>
+                    </div>
+                    <div className="shape right h-100 w-100 position-absolute">
+                        <Hex color={'#fff'}></Hex>
+                    </div>
+
+                    <div className="shadow w-100 h-100 position-absolute">
+                        <div className="w-100 h-100 position-relative">
+                            <div className="shape left h-100 w-100 position-absolute">
+                                <Hex color={'#000'}></Hex>
+                            </div>
+                            <div className="shape right h-100 w-100 position-absolute">
+                                <Hex color={'#000'}></Hex>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className=" row mt-4 align-items-start">   
                     <div className=" side-menu col-3 mr-4 shadow-sm bg-white p-0 sticky-top">
                         <h1 className="p-4 text-center">Modulos</h1>

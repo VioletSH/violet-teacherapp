@@ -16,7 +16,7 @@ class Cursos extends Component{
     }
     render(){
         const cursos = this.state.cursos;
-        const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
+        //const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
         const hexColor = 'var(--bg-darker)'
 
         return(
@@ -24,7 +24,6 @@ class Cursos extends Component{
                 {cursos?cursos.map(curso=>{
                     return(
                         curso.grupos.map(group=>{
-                            console.log(group)
                         return(
                              <div className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,curso.id, group.id)}>
                                 <div className="hex-item-content d-flex flex-column">

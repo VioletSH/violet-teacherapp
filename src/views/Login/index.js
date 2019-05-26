@@ -4,18 +4,13 @@ import logoResp from '../../assets/logo-login-res.png'
 
 import './Login.css'
 class Login extends Component{
-    constructor(props){
-        super(props)
-    }
     render(){
         return(
             <div className="row m-0 vh-100 overflow-hidden login">
-
                 <div className="col">
                     <img src={logo} alt="Logo" className="d-none d-lg-block h-100"/>
                     <img src={logoResp} alt="Logo" className="d-block d-lg-none mx-auto"/>
                 </div>
-
                 <div className="col-lg-4 pr-5 ml-md-n4 d-flex flex-column align-items-center justify-content-center">
                     <h3 >Plataforma de administración</h3>
                     <form action="" className="my-5 w-75 d-flex flex-column position-relative">

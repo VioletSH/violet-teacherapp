@@ -39,13 +39,11 @@ class Home extends Component{
         );
     }
     setAsignature=(idAsignature,idGroup)=>{
-        var asignature={}
         Services.getCursoGrupo(idAsignature,idGroup)  
         .then(response=>{
          return response.json();
          })
         .then((curso)=>{
-            console.log(curso)
             this.setState({
                 asignature:curso
             })

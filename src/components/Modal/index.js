@@ -4,9 +4,6 @@ import HexButton from '../HexButton'
 
 import './Modal.css'
 class Modal extends Component{
-    constructor(props){
-        super(props)
-    }
     render(){
         const title= this.props.title?this.props.title:'Please provide title in props'
         const modalContent = this.props.children?this.props.children:'Please provide Content inside Component Tags'
@@ -22,7 +19,7 @@ class Modal extends Component{
                             <div className="modal-body mx-4">
                                 {modalContent}
                             </div>
-                            <div class="modal-footer mr-3">
+                            <div className="modal-footer mr-3">
                                 <HexButton type='cancel' onClick={this.hideModal}>Cancelar</HexButton>
                                 <HexButton type='accept' onClick={this.props.onAccept}>Aceptar</HexButton>
                             </div>

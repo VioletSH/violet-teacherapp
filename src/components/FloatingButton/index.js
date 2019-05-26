@@ -2,9 +2,6 @@ import React,{Component} from 'react'
 
 import './FloatingButton.css'
 class FloatingButton extends Component{
-    constructor(props){
-        super(props)
-    }
     render(){
         const actions = this.props.actions
         return(

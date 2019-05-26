@@ -23,7 +23,6 @@ class Dashboard extends Component{
         const totalStudents = asignature?asignature.grupo.estudiantes.length:0
         const modules = asignature?asignature.modulos:'';
         const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
-        console.log(asignature)
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton
@@ -79,7 +78,7 @@ class Dashboard extends Component{
                             {modules?modules.map((module,i)=>{
                                 return (
                                     <li key={'MdLi'+module.id} id={'MdLi'+module.id} 
-                                        className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i==0?'active':'')} 
+                                        className={"d-flex justify-content-between align-items-center py-2 px-4 position-relative border-bottom ".concat(i===0?'active':'')} 
                                         onClick={this.navigateModules.bind(this,module.id)}
                                         >
                                         <span>{module.nombre}</span>
@@ -243,8 +242,8 @@ class ModalActivity extends Component{
         }
     }
     render(){
-        const moduleTitle = this.state.moduleTitle;
-        const moduleDesc = this.state.moduleDesc;
+        //const moduleTitle = this.state.moduleTitle;
+        //const moduleDesc = this.state.moduleDesc;
         return(
             <Modal title='Crear Actividad' openCount={this.state.openCountModal}>
                 <form className="d-flex flex-column">
@@ -254,7 +253,7 @@ class ModalActivity extends Component{
         )
     }
     componentWillReceiveProps(props){
-        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+        if(this.props.moduleTitle!==props.moduleTitle|this.props.moduleDesc!==props.moduleDesc){
             console.log('yai c:')
         }
         if(props.openCount!==this.props.openCount){
@@ -282,8 +281,8 @@ class ModalContent extends Component{
         }
     }
     render(){
-        const moduleTitle = this.state.moduleTitle;
-        const moduleDesc = this.state.moduleDesc;
+        //const moduleTitle = this.state.moduleTitle;
+        //const moduleDesc = this.state.moduleDesc;
         return(
             <Modal title='Crear Contenido' openCount={this.state.openCountModal}>
                 <form className="d-flex flex-column">
@@ -293,7 +292,7 @@ class ModalContent extends Component{
         )
     }
     componentWillReceiveProps(props){
-        if(this.props.moduleTitle!=props.moduleTitle|this.props.moduleDesc!=props.moduleDesc){
+        if(this.props.moduleTitle!==props.moduleTitle|this.props.moduleDesc!==props.moduleDesc){
             console.log('yai c:')
         }
         if(props.openCount!==this.props.openCount){

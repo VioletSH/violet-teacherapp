@@ -4,12 +4,8 @@ import DefultUser from '../../assets/default-user.png'
 import './Students.css'
 
 class Students extends Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         const students = this.props.group?this.props.group.estudiantes:'';
-        console.log(this.props.group)
         return(
             <div className="p-5 mx-5 col">
                 {students?students.map(student=>{
@@ -17,7 +13,7 @@ class Students extends Component{
                     <div id={'StDv'+student.id}className="shadow-sm bg-white my-1 d-flex flex-column student" onClick={this.toggleElement.bind(this,'StDv'+student.id)}>
                         <div className="shadow-sm py-2 px-4 d-flex flex-row align-items-center justify-content-between flex-grow-1">
                             <div className='row col-4'>
-                                <img src={DefultUser}/>
+                                <img src={DefultUser} alt='Imágen Estudiante'/>
                                 <div className='col'>
                                     <h6 className="m-0">{student.nombre}</h6>
                                 </div>

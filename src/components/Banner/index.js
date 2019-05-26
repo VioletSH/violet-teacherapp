@@ -14,7 +14,7 @@ class Banner extends Component{
         }
     }
     render(){
-        const asignature = Object.entries(this.props.asignature).length!=0?this.props.asignature:null;
+        const asignature = Object.entries(this.props.asignature).length!==0?this.props.asignature:null;
         const routeArray=this.props.location.pathname.split('/')
         const location =routeArray.includes(ROUTES.MODULES.substring(1,ROUTES.MODULES.length))?
                         0:
@@ -22,23 +22,23 @@ class Banner extends Component{
                         1:-1;
         return(
             <nav className="navbar navbar-expand-lg shadow-sm bg-white sticky-top py-0">
-                <a className="navbar-brand">
-                    <img src={Logo} className={location!==-1?'d-none':'d-block'}/>
+                <div className="navbar-brand">
+                    <img src={Logo} className={location!==-1?'d-none':'d-block'} alt='Logo'/>
                     <div className={location!==-1?'d-flex':'d-none'} onClick={()=>this.chageView(-1)}>
-                        <a className='mr-2'>&#8249;</a>
+                        <span className='mr-2'>&#8249;</span>
                         <span className='mr-2'>{asignature?asignature.abreviatura:''}</span>
                         {asignature?'G'+asignature.grupo.numero:''}
                     </div>
-                </a>
+                </div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse d-flex justify-content-center" id="navbarNavDropdown">
-                    <ul className={`${location!==-1?'d-initial':'d-none'}`+' navbar-nav'}>
-                        <li className={`${location===0?'active':''}`+" nav-item mx-2 px-1 pt-4 position-relative"}>
+                    <ul className={`${location!==-1?'d-initial':'d-none'}`.concat(' navbar-nav')}>
+                        <li className={`${location===0?'active':''}`.concat(" nav-item mx-2 px-1 pt-4 position-relative")}>
                             <span className="nav-link" onClick={()=>this.chageView(0)}>Asignaturas </span>
                         </li>
-                        <li className={`${location===1?'active':''}`+" nav-item mx-2 px-1 pt-4 position-relative"}>
+                        <li className={`${location===1?'active':''}`.concat(" nav-item mx-2 px-1 pt-4 position-relative")}>
                             <span className="nav-link" onClick={()=>this.chageView(1)}>Estudiante</span>
                         </li>
                     </ul>
@@ -48,7 +48,6 @@ class Banner extends Component{
         );
     }
     chageView=(view)=>{
-        console.log(view)
         switch(view){
             case 0: 
                 this.props.history.push(ROUTES.HOME+ROUTES.MODULES);

@@ -12,5 +12,22 @@ class Services{
             fetch(this.mainUrl+'/CursoGrupo/'+idCurso+'/'+idGrupo)
         )
     }
+
+
+    //POST Methods
+
+    static postModulo(idCurso,nombre){
+        var data = {
+                nombre: nombre,
+                curso: idCurso
+        }
+        return(
+            fetch(this.mainUrl+'/modulo', {
+                method: 'post',
+                body: JSON.stringify(data)
+                })
+        )
+    }
+
 }
 export default Services;

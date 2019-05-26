@@ -27,22 +27,22 @@ class Dashboard extends Component{
             <div className="p-5 mx-5 col">
                 <FloatingButton
                     actions={[{
-                        action:this.addModule,
+                        action:this.openModalAddModule,
                         icon:'AM'
                         },
                         {
-                        action:this.addActivity,
+                        action:this.openModalAddActivity,
                         icon:'AA'
                         },
                         {
-                        action:this.addContent,
+                        action:this.openModalAddContent,
                         icon:'AC'
                         },
                     ]}
                 />
 
 
-                <ModalModule openCount={this.state.openModalM}/>
+                <ModalModule openCount={this.state.openModalM} action={this.props.addModule}/>
                 <ModalActivity openCount={this.state.openModalA}/>
                 <ModalContent openCount={this.state.openModalC}/>
 
@@ -119,7 +119,7 @@ class Dashboard extends Component{
                                                 {actividad.contenidos?actividad.contenidos.map(contenido=>{
                                                     var mimeType = contenido.peticion.tipoContenido
                                                     return(
-                                                        <Hex size='3.5em' color={mainColor}>{resourceIcon[mimeType]}</Hex> 
+                                                        <Hex key={contenido.id} size='3.5em' color={mainColor}>{resourceIcon[mimeType]}</Hex> 
                                                     );
                                                 }):''}
                                             </div>
@@ -161,17 +161,17 @@ class Dashboard extends Component{
             block: "center"
          })
     }
-    addModule=()=>{
+    openModalAddModule=()=>{
         this.setState({
             openModalM:this.state.openModalM+1
         });
     }
-    addActivity=()=>{
+    openModalAddActivity=()=>{
         this.setState({
             openModalA:this.state.openModalA+1
         });
     } 
-    addContent=()=>{
+    openModalAddContent=()=>{
         this.setState({
             openModalC:this.state.openModalC+1
         });
@@ -199,7 +199,7 @@ class ModalModule extends Component{
         const moduleTitle = this.state.moduleTitle?this.state.moduleTitle:'';
         const moduleDesc = this.state.moduleDesc?this.state.moduleDesc:'';
         return(
-            <Modal title='Crear Módulo' openCount={this.state.openCountModal}>
+            <Modal title='Crear Módulo' openCount={this.state.openCountModal} onAccept={this.props.action.bind(this,moduleTitle)}>
                 <form className="d-flex flex-column">
                     <label>
                         Título del módulo

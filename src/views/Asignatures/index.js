@@ -25,7 +25,7 @@ class Cursos extends Component{
                     return(
                         curso.grupos.map(group=>{
                         return(
-                             <div className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,curso.id, group.id)}>
+                             <div key={'CGDv'+curso.id+''+group.id} className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,curso.id, group.id)}>
                                 <div className="hex-item-content d-flex flex-column">
                                     <h3 className="mt-3 mb-0">{curso.nombre.substring(0,24)+"..."}</h3>
                                     <label className="mb-2">{'Ingeniería Multimedia'}</label>

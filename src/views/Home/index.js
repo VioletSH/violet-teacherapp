@@ -28,7 +28,7 @@ class Home extends Component{
                             render={(props) => <Asignatures {...props} setAsignature={this.setAsignature} />} />
 
                         <Route path={this.props.match.path+ROUTES.MODULES} 
-                            render={(props) => <Dashboard {...props} asignature={this.state.asignature} />} />
+                            render={(props) => <Dashboard {...props} asignature={this.state.asignature} addModule={this.addModule} />} />
                         <Route path={this.props.match.path+ROUTES.STUDENTS} 
                             render={(props) => <Students {...props} group={this.state.asignature.grupo} />} />
 
@@ -48,6 +48,24 @@ class Home extends Component{
                 asignature:curso
             })
         })
+    }
+    
+    addModule=(nombre)=>{
+        var idAsignature = this.state.asignature.id;
+        if(!idAsignature)return
+        var that = this;
+        
+        Services.postModulo(idAsignature,nombre)
+        .then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            console.log('added', data);
+            var asignatureCopy = JSON.parse(JSON.stringify(that.state.asignature))
+            asignatureCopy.modulos.push(data)
+            that.setState({
+                asignature:asignatureCopy
+            })
+        });
     }
 
 }

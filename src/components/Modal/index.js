@@ -21,7 +21,7 @@ class Modal extends Component{
                             </div>
                             <div className="modal-footer mr-3">
                                 <HexButton type='cancel' onClick={this.hideModal}>Cancelar</HexButton>
-                                <HexButton type='accept' onClick={this.props.onAccept}>Aceptar</HexButton>
+                                <HexButton type='accept' onClick={this.onAccept}>Aceptar</HexButton>
                             </div>
                         </div>
                     </div> 
@@ -45,6 +45,11 @@ class Modal extends Component{
         while(elements[0]){
             elements[0].classList.remove('show')
         }
+    }
+
+    onAccept=()=>{
+        this.props.onAccept();
+        this.hideModal();
     }
 }
 

@@ -32,6 +32,7 @@ class Home extends Component{
                             asignature={this.state.asignature} 
                             addModule={this.addModule}
                             addActivity={this.addActivity}
+                            addContent={this.addContent}
                             />} />
 
                         <Route path={this.props.match.path+ROUTES.STUDENTS} 
@@ -57,7 +58,7 @@ class Home extends Component{
     
     addModule=(nombre)=>{
         var idAsignature = this.state.asignature.id;
-        if(!idAsignature)return
+        if(!idAsignature|!nombre)return
         var that = this;
 
         Services.postModulo(idAsignature,nombre)
@@ -73,7 +74,7 @@ class Home extends Component{
         });
     }
     addActivity=(idModule,nombre,desc)=>{
-        if(!idModule)return
+        if(!idModule|!nombre|!desc)return
         var that = this;
         
         Services.postActividad(idModule,nombre,desc)
@@ -89,6 +90,34 @@ class Home extends Component{
                 asignature:asignatureCopy
             })
         });
+    }
+    addContent=(idModulo,idActividad,url,tipo)=>{
+        console.log('module: '+ idModulo+' Actividad: '+ idActividad + ' url: '+url+' Tipo: '+tipo)
+        if(!idModulo|!idActividad|!url|!tipo)return
+        var that = this;
+
+        Services.postResource(url,tipo)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data)
+            Services.postContent(idActividad,data.id)
+            .then(function(response){
+                return response.json()
+            })
+            .then(function(data){
+                console.log('added', data);
+                var asignatureCopy = JSON.parse(JSON.stringify(that.state.asignature))
+                var moduleIndex = asignatureCopy.modulos.findIndex(x=>x.id==idModulo)
+                var activityIndex = asignatureCopy.modulos[moduleIndex].actividades.findIndex(x=>x.id==data.actividad.id)
+                asignatureCopy.modulos[moduleIndex].actividades[activityIndex].contenidos.push(data)
+                that.setState({
+                    asignature:asignatureCopy
+                })
+            })
+        })
+
     }
 
 }

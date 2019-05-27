@@ -40,11 +40,9 @@ class Dashboard extends Component{
                         },
                     ]}
                 />
-
-
                 <ModalModule openCount={this.state.openModalM} action={this.props.addModule}/>
                 <ModalActivity openCount={this.state.openModalA} modules={modules} action={this.props.addActivity}/>
-                <ModalContent openCount={this.state.openModalC}/>
+                <ModalContent openCount={this.state.openModalC} modules={modules} action={this.props.addContent}/>
 
                 <div className='hex-item d-flex position-relative'>
                     <div className="hex-item-content d-flex flex-column">
@@ -102,8 +100,8 @@ class Dashboard extends Component{
                                     return(
                                     <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-1 activity" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
                                         <div className="shadow-sm bg-white p-2 d-flex flex-row align-items-center">
-                                            <div className="d-flex flex-column">
-                                                <b>{actividad.nombre}</b>
+                                            <div className="d-flex flex-column col">
+                                                <b>{actividad.nombre.substring(0,50)}...</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
                                             <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm?actividad.notaProm.toFixed(1):0.0}</label>
@@ -253,8 +251,8 @@ class ModalActivity extends Component{
         return(
             <Modal title='Crear Actividad' openCount={this.state.openCountModal} onAccept={this.props.action.bind(this,moduleSelection,activityTitle,activityDesc)}>
                 <form className="d-flex flex-column">
-                    <label for="exampleFormControlSelect1">Modulo</label>
-                    <select className="form-control mb-2" id="exampleFormControlSelect1" onChange={(e)=>this.setState({moduleSelection:e.target.value})}>
+                    <label htmlFor="exampleFormControlSelect1">Modulo</label>
+                    <select className="mb-3" id="exampleFormControlSelect1" onChange={(e)=>this.setState({moduleSelection:e.target.value})}>
                         {modules?modules.map(module=>{
                             return(<option value={module.id}>{module.nombre}</option>)
                         }):''}
@@ -267,14 +265,18 @@ class ModalActivity extends Component{
                         Descripción
                         <textarea className="w-100" rows='4' value={activityDesc} placeholder='Digite la descripción de la actividad'onChange={(e)=>this.setState({activityDesc:e.target.value})}/>
                     </label>
-                    <div className='row'>
-                        <label className='col-4'>
+                    <div className='row justify-content-between'>
+                        <label className='col-3'>
                             Duración estimada
-                            <input type="text" className="w-100" placeholder='00:00:00'/>
+                            <input type="time" step="1" className="w-100"/>
+                        </label>
+                        <label className='col-4'>
+                            Fecha máxima de entrega
+                            <input type="datetime-local" className="w-100"/>
                         </label>
                         <label className='col-4'>
                             Nota máxima
-                            <input type="text" className="w-100" placeholder='0.0' />
+                            <input type="number" className="w-100" placeholder='0.0' />
                         </label>
                     </div>
                 </form>
@@ -303,19 +305,47 @@ class ModalContent extends Component{
     constructor(props){
         super(props)
         this.state={
-            moduleTitle:'',
-            moduleDesc:'',
-
             openCountModal:0
         }
     }
     render(){
-        //const moduleTitle = this.state.moduleTitle;
-        //const moduleDesc = this.state.moduleDesc;
+        const contentTitle = this.state.contentTitle;
+        const moduleSelection = this.state.moduleSelection;
+        const activitySelection = this.state.activitySelection;
+
+        const files = this.state.files;
+        const fileSelection = files?files[0]:null;
+        const fileUrl = fileSelection?'https://temporalURL.com/'+fileSelection.name.replace(/\s/g,''):null
+        const fileType = fileSelection?fileSelection.type:null
+
+        const modules = this.props.modules?this.props.modules:[];
+        const moduleSelected = modules.find(x=>x.id==moduleSelection)
+        const activities = moduleSelected?moduleSelected.actividades:[]
+
         return(
-            <Modal title='Crear Contenido' openCount={this.state.openCountModal}>
+            <Modal title='Crear Contenido' openCount={this.state.openCountModal} onAccept={this.props.action.bind(this,moduleSelection,activitySelection,fileUrl,fileType)}>
                 <form className="d-flex flex-column">
-                    <h1>On Development Content! Come later :3</h1>
+                    <label htmlFor="exampleFormControlSelect1">Modulo</label>
+                    <select className="mb-3" id="exampleFormControlSelect1" onChange={(e)=>this.setState({moduleSelection:e.target.value})}>
+                        {modules.map(module=>{
+                            return(<option value={module.id}>{module.nombre}</option>)
+                        })}
+                    </select>
+                    <label htmlFor="exampleFormControlSelect1">Actividad</label>
+                    <select className="mb-3" id="exampleFormControlSelect1" onChange={(e)=>this.setState({activitySelection:e.target.value})}>
+                        {activities.map(activity=>{
+                            return(<option value={activity.id}>{activity.nombre}</option>)
+                        })}
+                    </select>
+
+                     <label>
+                        Nombre
+                        <input type="text" className="w-100" value={contentTitle} placeholder='Digite el título de la actividad' onChange={(e)=>this.setState({activityTitle:e.target.value})}/>
+                    </label>
+                    <label>
+                        SubirArchivo
+                        <input type="file" className="w-100" name="myFile" onChange={(e)=>this.setState({files:e.target.files})}/>
+                    </label>
                 </form>
             </Modal>
         )

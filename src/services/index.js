@@ -42,5 +42,30 @@ class Services{
         )
     }
 
+    static postContent(idActividad,idRecurso){
+        var data = {
+            actividad: idActividad,
+            peticion: idRecurso
+        }
+        return(
+            fetch(this.mainUrl+'/contenido', {
+                method: 'post',
+                body: JSON.stringify(data)
+                })
+        )
+    }
+    static postResource(url,tipo){
+        var data = {
+            url: url,
+            tipoContenido: tipo
+        }
+        return(
+            fetch(this.mainUrl+'/recurso', {
+                method: 'post',
+                body: JSON.stringify(data)
+            })
+        )
+    }
+
 }
 export default Services;

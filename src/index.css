@@ -121,7 +121,7 @@ form label{
   color: var(--color-ppal);
   font-weight: 500
 }
-input, textarea{
+input, textarea, select{
   border:none;
   border-bottom: solid 1px gray;
   resize:none;
@@ -129,10 +129,8 @@ input, textarea{
   padding-bottom: 0.4em;
   transition: .2s
 }
-input:focus, textarea:focus{
+input:focus, textarea:focus, select:focus{
   outline: none;
   border-bottom: solid 2px var(--color-ppal);
 }
-
-
 /*End of Text Inputs and Forms*/

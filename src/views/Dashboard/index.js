@@ -28,15 +28,19 @@ class Dashboard extends Component{
                 <FloatingButton
                     actions={[{
                         action:this.openModalAddModule,
-                        icon:'AM'
+                        icon:'AM',
+                        tooltip:'Agregar Modulo'
                         },
                         {
                         action:this.openModalAddActivity,
-                        icon:'AA'
+                        icon:'AA',
+                        tooltip:'Agregar Actividad'
+
                         },
                         {
                         action:this.openModalAddContent,
-                        icon:'AC'
+                        icon:'AC',
+                        tooltip:'Agregar Contenido'
                         },
                     ]}
                 />
@@ -80,7 +84,7 @@ class Dashboard extends Component{
                                         onClick={this.navigateModules.bind(this,module.id)}
                                         >
                                         <span>{module.nombre}</span>
-                                        <Hex size='3.5em' color={mainColor}>{module.progreso}%</Hex> 
+                                        <Hex size='3.5em' color={mainColor} tooltip='Estudiantes que completaron el modulo'>{module.progreso}%</Hex> 
                                     </li>
                                     )
                             }):''}
@@ -90,23 +94,37 @@ class Dashboard extends Component{
                         {modules?modules.map(module=>{
                             return (
                                 <div key= {'MdDv'+module.id}    >
-                                    <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column">
+                                    <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column position-relative">
                                         <h3>{module.nombre}</h3>
+                                        <div id={'MdOpt'+module.id} className='options position-absolute mr-2' onClick={this.toggleElement.bind(this,('MdOpt'+module.id))}>
+                                            <div class="dropdown-menu">
+                                                <button class="dropdown-item" href="#">Editar</button>
+                                                <div role="separator" class="dropdown-divider"></div>
+                                                <button class="dropdown-item" href="#">Eliminar</button>
+                                            </div>
+                                        </div>
                                         <span className="align-self-end mr-4">{module.estudiantesTerminaron +'/' + totalStudents} Estudiantes terminaron</span>
                                     </div>
                                    {module.actividades.map(actividad=>{
                                     var dateCreation = new Date(actividad.createdAt)
                                     var dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
                                     return(
-                                    <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-1 activity" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
-                                        <div className="shadow-sm bg-white p-2 d-flex flex-row align-items-center">
+                                    <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-2 activity position-relative" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
+                                        <div className="shadow-sm bg-white p-2 pr-5 d-flex flex-row align-items-center">
                                             <div className="d-flex flex-column col">
                                                 <b>{actividad.nombre.substring(0,50)}...</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
                                             <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm?actividad.notaProm.toFixed(1):0.0}</label>
                                             <a href='#' className='mr-2'>ver notas</a>
-                                            <Hex size='3.5em' color={mainColor}>{actividad.progreso}%</Hex> 
+                                            <Hex size='3.5em' color={mainColor} tooltip='Estudiantes que completaron la actividad'>{actividad.progreso}%</Hex>
+                                            <div id={'AcOpt'+actividad.id} className='options position-absolute mr-2' onClick={this.toggleElement.bind(this,'AcOpt'+actividad.id)}>
+                                                <div class="dropdown-menu">
+                                                    <button class="dropdown-item" href="#">Editar</button>
+                                                    <div role="separator" class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" href="#">Eliminar</button>
+                                                </div>
+                                            </div> 
                                         </div>
                                         <div className="py-2 px-4 details">
                                             <div>

@@ -9,7 +9,7 @@ import Home from './views/Home'
 
 function App() {
   return (
-    <div className="h-100">
+    <div className="h-100 overflow-x-hidden">
       <Router>
         <Switch>
           <Route exact path={ROUTES.LOGIN} component={Login}/>

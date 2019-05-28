@@ -42,12 +42,51 @@
 .activity .details{
     position: inherit;
     opacity: 1;
-    transition: .2s
+    transition: .1s;
+    min-height: 1.1em;
+}
+.activity::after{
+    font-size: 0.5rem;
+    content:'V';
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: -0em;
+    cursor: pointer;
 }
 .activity:not(.active) .details{
     opacity: 0;
-    position: absolute;
-    transform: translateY(1em);
+    height: 0;
+    transform: translateY(-2em);
     pointer-events: none;
 }
 /*End of Toggle Elements*/
+
+/*Options Style*/
+.options{
+    right:0;
+    top:0
+}
+.options:hover{
+    cursor: pointer;
+}
+.options::before{
+    font-size: 1.2em;
+    content:'...'
+}
+/*Overrides Boostrap*/
+.options > .dropdown-menu{
+    display: block;
+    opacity: 1;
+    pointer-events: initial; 
+    left:-9.5rem;
+    transition: .2s
+}
+.options > .dropdown-menu *:hover{
+    background-color: var(--color-ppal);
+    color:white
+}
+.options:not(.active) > .dropdown-menu{
+    opacity: 0;
+    transform:translate(50%,-50%) scale(0,0)
+}

@@ -6,8 +6,9 @@ class Hex extends Component{
         const color= this.props.color?this.props.color:'#000'
         const content = this.props.children
         const size = this.props.size
+        const tooltip = this.props.tooltip
         return(
-            <div className="hex d-flex justify-content-center align-items-center mx-1" style={size?{height:size,width:size}:{}}>
+            <div data-balloon={tooltip} data-balloon-pos="up" className="hex d-flex justify-content-center align-items-center mx-1" style={size?{height:size,width:size}:{}}>
                 {content}
                 <svg width="100%" height="100%" viewBox="0 0 200 174" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fillRule="evenodd">

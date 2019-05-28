@@ -6,6 +6,7 @@
     color: white;
     font-size: 2rem;
     cursor: pointer;
+    z-index: 1000;
 }
 .floating-button .floating-button{
     right: inherit !important;

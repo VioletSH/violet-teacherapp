@@ -33,6 +33,8 @@ class Home extends Component{
                             addModule={this.addModule}
                             addActivity={this.addActivity}
                             addContent={this.addContent}
+                            removeModule={this.removeModule}
+                            removeActivity={this.removeActivity}
                             />} />
 
                         <Route path={this.props.match.path+ROUTES.STUDENTS} 
@@ -73,6 +75,21 @@ class Home extends Component{
             })
         });
     }
+    removeModule=(idModule)=>{
+        var that = this;
+        Services.deleteModulo(idModule)
+        .then(response=>{
+            return response.json()
+        })
+        .then(data=>{
+            console.log('removed',data)
+            var asignatureCopy = JSON.parse(JSON.stringify(that.state.asignature))
+            asignatureCopy.modulos = asignatureCopy.modulos.filter(x=>x.id!=data.id)
+            that.setState({
+                asignature:asignatureCopy
+            })
+        })
+    }
     addActivity=(idModule,nombre,desc)=>{
         if(!idModule|!nombre|!desc)return
         var that = this;
@@ -90,6 +107,23 @@ class Home extends Component{
                 asignature:asignatureCopy
             })
         });
+    }
+    removeActivity=(idModule,idAcivity)=>{
+        var that = this;
+        Services.deleteActividad(idAcivity)
+        .then(response=>{
+            return response.json()
+        })
+        .then(data=>{
+            console.log('removed',data)
+            var asignatureCopy = JSON.parse(JSON.stringify(that.state.asignature))
+            var moduleIndex = asignatureCopy.modulos.findIndex(x=>x.id===data.modulo.id)
+            var module = asignatureCopy.modulos[moduleIndex]
+            module.actividades = module.actividades.filter(x=>x.id!=data.id)
+            that.setState({
+                asignature:asignatureCopy
+            })
+        })
     }
     addContent=(idModulo,idActividad,url,tipo)=>{
         console.log('module: '+ idModulo+' Actividad: '+ idActividad + ' url: '+url+' Tipo: '+tipo)

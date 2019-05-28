@@ -100,7 +100,7 @@ class Dashboard extends Component{
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" href="#">Editar</button>
                                                 <div role="separator" class="dropdown-divider"></div>
-                                                <button class="dropdown-item" href="#">Eliminar</button>
+                                                <button class="dropdown-item" href="#" onClick={this.props.removeModule.bind(this,module.id)}>Eliminar</button>
                                             </div>
                                         </div>
                                         <span className="align-self-end mr-4">{module.estudiantesTerminaron +'/' + totalStudents} Estudiantes terminaron</span>
@@ -122,7 +122,7 @@ class Dashboard extends Component{
                                                 <div class="dropdown-menu">
                                                     <button class="dropdown-item" href="#">Editar</button>
                                                     <div role="separator" class="dropdown-divider"></div>
-                                                    <button class="dropdown-item" href="#">Eliminar</button>
+                                                    <button class="dropdown-item" href="#" onClick={this.props.removeActivity.bind(this,module.id,actividad.id)}>Eliminar</button>
                                                 </div>
                                             </div> 
                                         </div>

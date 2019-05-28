@@ -67,5 +67,39 @@ class Services{
         )
     }
 
+    //DeleteMethods
+    static deleteModulo(idModulo){
+        return(
+            fetch(this.mainUrl+'/modulo', {
+                method: 'delete',
+                body: JSON.stringify({id:idModulo})
+                })
+        )
+    }
+    static deleteActividad(idActividad){
+        return(
+            fetch(this.mainUrl+'/actividad', {
+                method: 'delete',
+                body: JSON.stringify({id:idActividad})
+                })
+        )
+    }
+
+    static deleteContent(idContenido){
+        return(
+            fetch(this.mainUrl+'/contenido', {
+                method: 'delete',
+                body: JSON.stringify({id:idContenido})
+                })
+        )
+    }
+    static deleteResource(idRecurso){
+        return(
+            fetch(this.mainUrl+'/recurso', {
+                method: 'delete',
+                body: JSON.stringify({id:idRecurso})
+            })
+        )
+    }
 }
 export default Services;

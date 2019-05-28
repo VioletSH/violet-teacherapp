@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {resourceIcon} from '../../constants/icons'
+import DefultUser from '../../assets/default-user.png'
 
 import Hex from '../../components/Hexagon'
 import FloatingButton from '../../components/FloatingButton'
@@ -16,6 +17,7 @@ class Dashboard extends Component{
             openModalM:0,
             openModalA:0,
             openModalC:0,
+            openModalN:0,
         }
     }
     render(){
@@ -23,6 +25,8 @@ class Dashboard extends Component{
         const totalStudents = asignature?asignature.grupo.estudiantes.length:0
         const modules = asignature?asignature.modulos:'';
         const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
+
+        const actividadSeleccionada = this.state.actividadSeleccionada;
         return(
             <div className="p-5 mx-5 col">
                 <FloatingButton
@@ -47,6 +51,8 @@ class Dashboard extends Component{
                 <ModalModule openCount={this.state.openModalM} action={this.props.addModule}/>
                 <ModalActivity openCount={this.state.openModalA} modules={modules} action={this.props.addActivity}/>
                 <ModalContent openCount={this.state.openModalC} modules={modules} action={this.props.addContent}/>
+                
+                <ModalNotas openCount={this.state.openModalN} actividad={actividadSeleccionada}/>
 
                 <div className='hex-item d-flex position-relative'>
                     <div className="hex-item-content d-flex flex-column">
@@ -96,7 +102,7 @@ class Dashboard extends Component{
                                 <div key= {'MdDv'+module.id}    >
                                     <div id={'MdDv'+module.id} className="shadow-sm bg-white p-2 mb-2 d-flex flex-column position-relative">
                                         <h3>{module.nombre}</h3>
-                                        <div id={'MdOpt'+module.id} className='options position-absolute mr-2' onClick={this.toggleElement.bind(this,('MdOpt'+module.id))}>
+                                        <div id={'MdOpt'+module.id} className='options position-absolute mr-2' onClick={this.toggleElement('MdOpt'+module.id)}>
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" href="#">Editar</button>
                                                 <div role="separator" class="dropdown-divider"></div>
@@ -109,16 +115,16 @@ class Dashboard extends Component{
                                     var dateCreation = new Date(actividad.createdAt)
                                     var dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
                                     return(
-                                    <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-2 activity position-relative" onClick={this.toggleElement.bind(this,('AcDv'+actividad.id))}>
+                                    <div key={'AcDv'+actividad.id} id={'AcDv'+actividad.id} className="shadow-sm bg-white mx-4 mb-2 activity position-relative" onClick={this.toggleElement('AcDv'+actividad.id)}>
                                         <div className="shadow-sm bg-white p-2 pr-5 d-flex flex-row align-items-center">
                                             <div className="d-flex flex-column col">
                                                 <b>{actividad.nombre.substring(0,50)}...</b>
                                                 <span>Publicado: {dateCreation.toLocaleDateString("es-ES", dateFormatOptions)}</span>
                                             </div>
                                             <label className="ml-auto mb-0 mr-4">Nota(prom): {actividad.notaProm?actividad.notaProm.toFixed(1):0.0}</label>
-                                            <a href='#' className='mr-2'>ver notas</a>
+                                            <button href='#' className='mr-2'onClick={this.openModalVerNotas(actividad)}>ver notas</button>
                                             <Hex size='3.5em' color={mainColor} tooltip='Estudiantes que completaron la actividad'>{actividad.progreso}%</Hex>
-                                            <div id={'AcOpt'+actividad.id} className='options position-absolute mr-2' onClick={this.toggleElement.bind(this,'AcOpt'+actividad.id)}>
+                                            <div id={'AcOpt'+actividad.id} className='options position-absolute mr-2' onClick={this.toggleElement('AcOpt'+actividad.id)}>
                                                 <div class="dropdown-menu">
                                                     <button class="dropdown-item" href="#">Editar</button>
                                                     <div role="separator" class="dropdown-divider"></div>
@@ -151,7 +157,10 @@ class Dashboard extends Component{
             </div>
         );
     }
-    toggleElement=(id)=>{
+    toggleElement=id=>event=>{
+        event.preventDefault()
+        event.stopPropagation()
+        
         var el = document.getElementById(id)
         if(el.classList.contains('active')){
             el.classList.remove('active')
@@ -190,6 +199,15 @@ class Dashboard extends Component{
     openModalAddContent=()=>{
         this.setState({
             openModalC:this.state.openModalC+1
+        });
+    }
+    openModalVerNotas=(actividad)=>event=>{
+        event.preventDefault()
+        event.stopPropagation()
+
+        this.setState({
+            openModalN:this.state.openModalN+1,
+            actividadSeleccionada:actividad
         });
     }
 
@@ -365,6 +383,62 @@ class ModalContent extends Component{
                         <input type="file" className="w-100" name="myFile" onChange={(e)=>this.setState({files:e.target.files})}/>
                     </label>
                 </form>
+            </Modal>
+        )
+    }
+    componentWillReceiveProps(props){
+        if(this.props.moduleTitle!==props.moduleTitle|this.props.moduleDesc!==props.moduleDesc){
+            console.log('yai c:')
+        }
+        if(props.openCount!==this.props.openCount){
+            this.setState({
+                openCountModal:this.state.openCountModal+1  
+            })
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            moduleTitle:this.props.moduleTitle,
+            moduleDesc:this.props.moduleDesc
+        })
+    }
+}
+class ModalNotas extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            openCountModal:0
+        }
+    }
+    render(){
+        const actividad = this.props.actividad;
+        const nombre = actividad?actividad.nombre:'';
+        const notas = actividad?actividad.notas:[];
+        return(
+            <Modal title={'Notas Actividad: '.concat(nombre)} openCount={this.state.openCountModal}>
+                <div>
+                    {notas.length>0?
+                        notas.map(nota=>{
+                            var dateFinished = new Date(nota.fechaEntrega)
+                            var dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                        return(
+                            <div className="shadow-sm py-2 px-4 d-flex flex-row align-items-center justify-content-between flex-grow-1">
+                                <div className='row col'>
+                                    <img src={DefultUser} alt='Imágen Estudiante'/>
+                                    <div className='col'>
+                                        <h6 className="m-0">{nota.estudiante}</h6>
+                                        <span>Culminado: {dateFinished.toLocaleDateString("es-ES", dateFormatOptions)}</span>
+                                    </div>
+                                </div>
+                                <span className="mr-5">Nota: {nota.nota}</span>
+                            </div>
+                        )
+                    }):
+                            <div>
+                                Ningún estudiante ha terminado la actividad
+                            </div>
+                    }
+                </div>
             </Modal>
         )
     }

@@ -2,34 +2,36 @@ import React,{Component} from 'react'
 import Services from '../../services';
 import * as ROUTES from '../../constants/routes'
 
-import './Asignatures.css'
+import './Cursos.css'
 
 import Hex from '../../components/Hexagon'
 
-
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Component View used to render every Grupo/Curso associated with the Teacher that is loged in
+ * After selection, the view Dashboard will display detailed information
+ * 
+ * @param grupos: every Grupo/Curso associated with the teacher
+ */
 class Cursos extends Component{
     constructor(props){
         super(props);
         this.state={
-            cursos:[]
+            grupos:[]
         }
     }
     render(){
-        const cursos = this.state.cursos;
-        //const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')
+        const grupos = this.state.grupos;
         const hexColor = 'var(--bg-darker)'
 
         return(
             <div className="p-5 m-auto hexagon-container">
-                {cursos?cursos.map(curso=>{
+                {grupos?grupos.map(grupo=>{
                     return(
-                        curso.grupos.map(group=>{
-                        return(
-                             <div key={'CGDv'+curso.id+''+group.id} className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,curso.id, group.id)}>
-                                <div className="hex-item-content d-flex flex-column">
-                                    <h3 className="mt-3 mb-0">{curso.nombre.substring(0,24)+"..."}</h3>
-                                    <label className="mb-2">{'Ingeniería Multimedia'}</label>
-                                    <span className="mt-auto mb-3">{'n estudiantes'}</span>
+                             <div key={'CGDv'+grupo.curso.id+''+grupo.id} className='hex-item hoverable d-flex position-relative' onClick={this.navigateToModule.bind(this ,grupo.curso.id, grupo.id)}>
+                                <div className="hex-item-content d-flex flex-column justify-content-center">
+                                    <h3 className="mt-3 mb-0">{grupo.curso.nombre.substring(0,24)+"..."}</h3>
+                                    <label className="mb-4">{'Ingeniería Multimedia'}</label>
                                 </div>
                                 <div className="shape left h-100 w-100 position-absolute">
                                     <Hex color={'#fff'}></Hex>
@@ -39,7 +41,7 @@ class Cursos extends Component{
                                 </div>
                                 <div className='right w-100 h-100 position-absolute'>
                                     <Hex color={hexColor}>
-                                        <h1>G{group.numero}</h1>
+                                        <h1>G{grupo.numero}</h1>
                                     </Hex>
                                 </div>
                                 <div className="shadow w-100 h-100 position-absolute">
@@ -54,25 +56,34 @@ class Cursos extends Component{
                                 </div>
                             </div>
                             )
-                        })
-                    )
                 }):''}
             </div>
         );
     }
+    /**Reads local storage to get the information relative to user(teacher) id that is loged in*/
     componentDidMount(){
-        Services.getCursos()  
-       .then(response=>{
-        return response.json();
-        })
-        .then((myJson)=>{
-            this.setState({
-                cursos:myJson
+        if(localStorage.user){
+            var user = JSON.parse(localStorage.user)
+
+            var idDocente = user.id
+            Services.getGrupos(idDocente)  
+            .then(response=>{
+            return response.json();
             })
-        });
+            .then((grupos)=>{
+                console.log(grupos)
+                this.setState({
+                    grupos:grupos
+                })
+            });
+        }
     }
-    navigateToModule=(idcurso,idGroup)=>{
-        this.props.setAsignature(idcurso,idGroup);
+    /**used to navigate to 'Dashboard' view and set the selected Grupo/Curso in 'Home' component view
+     * @param idCurso: id of the curso in backend
+     * @param idGrupo: id of the Grupo in backend
+     */
+    navigateToModule=(idCurso,idGrupo)=>{
+        this.props.setCurso(idCurso,idGrupo);
         this.props.history.push(ROUTES.HOME+ROUTES.MODULES)
     }
 }

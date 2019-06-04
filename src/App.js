@@ -7,6 +7,8 @@ import * as ROUTES from './constants/routes'
 import Login from './views/Login'
 import Home from './views/Home'
 
+import './assets/css/violet-icons/css/violet-icons.css'
+
 function App() {
   return (
     <div className="h-100 overflow-x-hidden">

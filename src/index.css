@@ -1,3 +1,4 @@
+/*Global css variables are defined on body*/
 body {
   margin: 0;
   padding: 0;
@@ -16,6 +17,8 @@ body {
   --color-ppal: #8C37BE;
 
   --bg-gray: #f7f7f7;
+
+  color:#222;
 }
 
 code {
@@ -41,9 +44,18 @@ a:hover{
   width: fit-content;
 }
 .btn-violet-secondary{
-  border:  1px solid var(--bg-darker);
-  background: white !important;
+  border:  1px solid var(--color-ppal);
+  color: var(--color-ppal);
+  background: white;
   width: fit-content;
+}
+.btn-violet-primary, .btn-violet-secondary{
+  outline: none !important;
+  box-shadow: none!important
+}
+.btn-violet-primary:hover,.btn-violet-secondary:hover{
+  background: var(--bg-darker);
+  color:white
 }
 /*End of Buttons*/
 

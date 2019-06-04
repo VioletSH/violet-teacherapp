@@ -46,8 +46,9 @@
     min-height: 1.1em;
 }
 .activity::after{
-    font-size: 0.5rem;
-    content:'V';
+    font-size: 0.8rem;
+    font-family: "violet-icons";
+    content: '\e804';
     position: absolute;
     width: 100%;
     text-align: center;
@@ -65,14 +66,16 @@
 /*Options Style*/
 .options{
     right:0;
-    top:0
+    top:0.5em
 }
 .options:hover{
     cursor: pointer;
 }
 .options::before{
-    font-size: 1.2em;
-    content:'...'
+    font-family: "violet-icons";
+    font-size: 1.4em;
+    content: '\e805';
+    color: var(--color-ppal);
 }
 /*Overrides Boostrap*/
 .options > .dropdown-menu{

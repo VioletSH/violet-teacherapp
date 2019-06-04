@@ -1,3 +1,7 @@
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Object used to map MIME Types to Icons
+ */
 export const resourceIcon ={
     'text/plain':'T',
     'text/html':'T',

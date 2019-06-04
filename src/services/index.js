@@ -1,10 +1,20 @@
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Class that enables every communication with the backend by its API
+ * Every method needs to be static, no instances will be created of this class
+ * @param mainUrl the backend server url+port 
+ * 
+ * All methods sould be used on Lifehook ComponentDidMount of the component that needs it
+ * 
+ * Note: the only components that communicate directly with this class are Home and Login
+ */
 class Services{
-
     static mainUrl = 'http://localhost:1337';
 
-    static getCursos(){
+    // GET Methods
+    static getGrupos(idDocente){
         return (
-            fetch(this.mainUrl+'/curso')
+            fetch(this.mainUrl+'/grupo?docente='+idDocente)
         )
     }
     static getCursoGrupo(idCurso,idGrupo){
@@ -12,7 +22,11 @@ class Services{
             fetch(this.mainUrl+'/CursoGrupo/'+idCurso+'/'+idGrupo)
         )
     }
-
+    static getDocente(correo){
+        return(
+            fetch(this.mainUrl+'/Docente?correoElectronico='+correo)
+        )
+    }
 
     //POST Methods
 

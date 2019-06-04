@@ -1,5 +1,38 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+#Important
+The backend needs to run based on this project: https://github.com/VioletSH/Violet_Backend
+#Folder Structure and Explanation
+Note: inside most of component folders that isn't detailed exists a index.js file with the logic and design and a .css with the styles of that component
+.
+├── public                     # Generated default by react, the root html
+├── src                        # Main Proyect Structure
+│   ├── assets                 # Table 
+│   │   ├── css                # Custom css icon-font
+│   │   └── img                # Images used by the app
+│   ├── components             # Reusable Components are in this folder
+│   │   ├── Banner             # Top info
+│   │   ├── FloatingButton     # Reusable floating right bottom button and multiple options
+│   │   ├── Hexagon            # Main shape of the app, exports a svg with hexagon shape
+│   │   ├── HexButton          # Two types of buttons, cancel and accept
+│   │   └── Modal              # Base component to build and work on Modals
+│   ├── constants              #
+│   │   ├── icons.js           # Custom css icon-font
+│   │   └── routes.js          # Images used by the app
+│   ├── services               # API connection to backend (developed in Sails.js)
+│   ├── views                  # Full views that uses components inside component folder are in this folder
+│   │   ├── Cursos             # After Login, the Curso/Grupo selection begins here
+│   │   ├── Dashboard          # Main view, Modules, activities and contens appear here
+│   │   │   └── Modals         # Images used by the app
+│   │   ├── Estudiantes        # The view os student of each group
+│   │   ├── Home               # This component handles as parent of everything except login, process and                                 # defines the logics/methods reusables in all the app
+│   │   └── Login              # Initial view, credential authentications
+│   ├── App.css                # Generated default by react, used as root element
+│   ├── App.js                 # Root element logic
+│   ├── App.test.js            # Testing 
+│   ├── index.css              # Global css, variables and commond styles are here
+│   ├── index.js               # Global logic, loads base resources
+│   └── ...
+└── ...
 ## Available Scripts
 
 In the project directory, you can run:

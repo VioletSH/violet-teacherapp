@@ -30,3 +30,9 @@
 .navbar li:not(.active)::after{
     display: none;
 }
+.navbar i{
+    color:var(--bg-darker)
+}
+.navbar i:hover{
+    cursor: pointer;
+}

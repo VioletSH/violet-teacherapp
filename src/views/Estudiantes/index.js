@@ -1,35 +1,39 @@
 import React,{Component} from 'react'
-import DefultUser from '../../assets/default-user.png'
+import DefultUser from '../../assets/img/default-user.png'
 
-import './Students.css'
-
-class Students extends Component{
+import './Estudiantes.css'
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Component View used to render every Grupo/Curso students
+ * @param estudiantes: array of estudiantes (Objects) by the selected Curso/Grupo on its parent
+ */
+class Estudiantes extends Component{
     render(){
-        const students = this.props.group?this.props.group.estudiantes:'';
+        const estudiantes = this.props.grupo?this.props.grupo.estudiantes:'';
         return(
             <div className="p-5 mx-5 col">
-                {students?students.map(student=>{
+                {estudiantes?estudiantes.map(estudiante=>{
                     return(
-                    <div id={'StDv'+student.id}className="shadow-sm bg-white my-1 d-flex flex-column student" onClick={this.toggleElement.bind(this,'StDv'+student.id)}>
+                    <div id={'StDv'+estudiante.id}className="shadow-sm bg-white my-1 d-flex flex-column student position-relative" onClick={this.toggleElement.bind(this,'StDv'+estudiante.id)}>
                         <div className="shadow-sm py-2 px-4 d-flex flex-row align-items-center justify-content-between flex-grow-1">
                             <div className='row col-4'>
                                 <img src={DefultUser} alt='Imágen Estudiante'/>
                                 <div className='col'>
-                                    <h6 className="m-0">{student.nombre}</h6>
+                                    <h6 className="m-0">{estudiante.nombre}</h6>
                                 </div>
                             </div>
                             <div className="col-6 row justify-contet-center align-items-center">
                                 Progress:
                                 <div className="progress col p-0 ml-2 position-relative shadow-sm">
-                                    <div className="progress-bar" role="progressbar" style={{width: student.progreso+'%',backgroundColor:'var(--color-ppal)'}} aria-valuenow={student.progreso} aria-valuemin="0" aria-valuemax="100"></div>
-                                    <span className="position-absolute">{student.progreso}%</span>
+                                    <div className="progress-bar" role="progressbar" style={{width: estudiante.progreso+'%',backgroundColor:'var(--color-ppal)'}} aria-valuenow={estudiante.progreso} aria-valuemin="0" aria-valuemax="100"></div>
+                                    <span className="position-absolute">{estudiante.progreso}%</span>
                                 </div>
                             </div>
-                            <span className="mr-5">Nota: {student.notaProm}</span>
-                            <a href={"mailto:"+student.correoElectronico}>mail</a>
+                            <span className="mr-5">Nota: {estudiante.notaProm}</span>
+                            <a href={"mailto:"+estudiante.correoElectronico} className='icon-mail'></a>
                         </div>
                         <div className="details px-5 py-3 row justify-content-between">
-                            {student.notas.map(module=>{
+                            {estudiante.notas.map(module=>{
                                 return(
                                     <div className='col-5 my-4'>
                                         <h5>{module.modulo}</h5>
@@ -51,6 +55,11 @@ class Students extends Component{
             </div>
         )
     }
+    /**Reusable function used to switch styles to elements
+     * class active is defined by every element and affects its apperance, 
+     * expected to works as switch that hides and shows info
+     * @param id: the id of the HTML Element
+     */
     toggleElement=(id)=>{
         var el = document.getElementById(id)
         if(el.classList.contains('active')){
@@ -61,4 +70,4 @@ class Students extends Component{
         }
     }
 }
-export default Students
+export default Estudiantes

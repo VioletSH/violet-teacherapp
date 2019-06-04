@@ -1,6 +1,12 @@
 import React,{Component} from 'react'
 import './HexButton.css'
-
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Component used to render buttons with some hexagonal shapes , there are two types...
+ * @param type: the type of the button to render, cancel and accept (differs on shape and color)
+ * @param mainColor: the css variable defined on index.css to be the main color of the app 
+ * @param content: the html elements or plain text inside the hexagon
+ */
 class HexButton extends Component{
     render(){
         const mainColor = getComputedStyle(document.body).getPropertyValue('--color-ppal')

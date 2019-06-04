@@ -1,6 +1,13 @@
 import React,{Component} from 'react'
 import './Hexagon.css'
-
+/**
+ * @author Erik Loaiza & Marco Roldan
+ * Component used to render Hexagon shapes
+ * @param color: the background color of the hexagon
+ * @param content: the html elements or plain text inside the hexagon
+ * @param size: the height and width of the shape
+ * @param length: the text that appears as tooltip on hover
+ */
 class Hex extends Component{
     render(){
         const color= this.props.color?this.props.color:'#000'
